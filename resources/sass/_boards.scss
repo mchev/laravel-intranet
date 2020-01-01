@@ -1,0 +1,208 @@
+.board {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    margin-bottom: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 8px;
+}
+
+#editTaskModal h4 {
+    margin-top: 2rem;
+    font-size: 110%;
+}
+
+#editTaskModal h4:first-child {
+    margin-top: initial;
+}
+
+.list-wrapper:first-child {
+    margin-left: 8px;
+}
+
+.list-wrapper {
+    width: 272px;
+    margin: 0 4px;
+    margin-left: 4px;
+    height: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.list {
+    background-color: #ebecf0;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    position: relative;
+    white-space: normal; 
+}
+
+.list-header {
+    flex: 0 0 auto;
+    padding: 10px 8px;
+    padding-right: 8px;
+    position: relative;
+    min-height: 20px;
+    font-weight: bold;
+}
+
+.list-cards {
+    flex: 1 1 auto;
+    margin-bottom: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0 4px;
+    padding: 0 4px;
+    z-index: 1;
+    min-height: 0;
+    //max-height: 70vh;
+}
+
+.list-card {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    cursor: pointer;
+    display: block;
+    margin-bottom: 8px;
+    max-width: 300px;
+    min-height: 20px;
+    position: relative;
+    text-decoration: none;
+    z-index: 0;
+}
+
+.list-card-details {
+    overflow: hidden;
+    padding: 6px 8px 2px;
+    position: relative;
+    z-index: 10;
+}
+
+.list-card-labels {
+    overflow: auto;
+    position: relative;
+}
+
+.card-label {
+    border-radius: 4px;
+    color: #fff;
+    background-color: rgba(9,30,66,.04);
+    display: block;
+    margin-right: 4px;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 4px 6px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.card-label.tag {
+    float: left;
+    font-size: 12px;
+    font-weight: 700;
+    height: 16px;
+    line-height: 16px;
+    margin: 0 4px 4px 0;
+    max-width: 198px;
+    min-width: 40px;
+    padding: 0 8px;
+    text-shadow: none;
+    width: auto;
+}
+
+.badges {
+    float: left;
+    max-width: 100%;
+    margin-left: -2px;
+}
+
+.list-card-title {
+    clear: both;
+    display: block;
+    margin: 0 0 4px;
+    overflow: hidden;
+    text-decoration: none;
+    word-wrap: break-word;
+    color: #172b4d;
+}
+
+.card-composer-container {
+    min-height: 38px;
+    max-height: 38px;
+    display: flex;
+    justify-content: space-between;
+}
+
+textarea.list-card-composer-textarea, 
+textarea.list-card-composer-textarea:focus {
+    background: none;
+    border: none;
+    box-shadow: none;
+    height: auto;
+    margin-bottom: 4px;
+    max-height: 162px;
+    min-height: 54px;
+    overflow-y: auto;
+    padding: 0;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    resize: none;
+    height: 60px;
+}
+
+textarea.description-content {
+    overflow: hidden;
+    overflow-wrap: break-word;
+    resize: none;
+    height: 108px;
+    min-height: 108px;
+    background: #fff;
+    box-shadow: none;
+}
+
+
+.card-label-green {
+    @include button-variant($green, darken($green, 7.5%), darken($green, 10%), lighten($green,5%), lighten($green, 10%), darken($green,30%));
+}
+.card-label-yellow {
+    @include button-variant($yellow, darken($yellow, 7.5%), darken($yellow, 10%), lighten($yellow,5%), lighten($yellow, 10%), darken($yellow,30%));
+}
+.card-label-orange {
+    @include button-variant($orange, darken($orange, 7.5%), darken($orange, 10%), lighten($orange,5%), lighten($orange, 10%), darken($orange,30%));
+}
+.card-label-red {
+    @include button-variant($red, darken($red, 7.5%), darken($red, 10%), lighten($red,5%), lighten($red, 10%), darken($red,30%));
+}
+.card-label-purple {
+    @include button-variant($purple, darken($purple, 7.5%), darken($purple, 10%), lighten($purple,5%), lighten($purple, 10%), darken($purple,30%));
+}
+.card-label-blue {
+    @include button-variant($blue, darken($blue, 7.5%), darken($blue, 10%), lighten($blue,5%), lighten($blue, 10%), darken($blue,30%));
+}
+.card-label-sky {
+    @include button-variant($sky, darken($sky, 7.5%), darken($sky, 10%), lighten($sky,5%), lighten($sky, 10%), darken($sky,30%));
+}
+.card-label-lime {
+    @include button-variant($lime, darken($lime, 7.5%), darken($lime, 10%), lighten($lime,5%), lighten($lime, 10%), darken($lime,30%));
+}
+.card-label-pink {
+    @include button-variant($pink, darken($pink, 7.5%), darken($pink, 10%), lighten($pink,5%), lighten($pink, 10%), darken($pink,30%));
+}
+.card-label-black {
+    @include button-variant($black, darken($black, 7.5%), darken($black, 10%), lighten($black,5%), lighten($black, 10%), darken($black,30%));
+}
+.card-label-null {
+    @include button-variant($null, darken($null, 7.5%), darken($null, 10%), lighten($null,5%), lighten($null, 10%), darken($null,30%));
+}

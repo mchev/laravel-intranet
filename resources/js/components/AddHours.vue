@@ -1,0 +1,132 @@
+<template>
+	
+	<div class="card">
+
+	  <div class="card-header">
+	    Ajouter des heures
+	  </div>
+
+	  <div class="card-body">
+
+	  	<div v-if="response" class="alert alert-success">
+	  		{{ response.time }}h ont été ajoutée au projet {{ response.project.name }}
+	  	</div>
+
+		<form v-on:submit.prevent="store" action="#" method="post">
+
+			<div class="form-group">
+				<label>Projet</label>
+				<v-select :options="projects" v-model="selected" label="name">
+					<template #search="{attributes, events}">
+						<input
+							class="vs__search"
+							:required="!selected"
+							v-bind="attributes"
+							v-on="events"
+						/>
+					</template>					
+				</v-select>
+			</div>
+
+			<div class="row mb-3">
+
+				<div class="col-md-6">
+					<label>Date</label>
+					<input type="date" v-model="date" class="form-control" required>
+				</div>
+
+				<div class="col-md-6">
+					<label>Temps</label>
+					<input type="time" v-model="time" class="form-control" required>
+				</div>
+
+			</div>
+
+			<div class="form-group">
+				<label>Commentaire</label>
+				<textarea class="form-control" v-model="comment"></textarea>
+			</div>
+
+			<div class="form-group text-right">
+				<button type="submit" class="btn btn-primary">Valider</button>
+			</div>
+
+		</form>
+
+	  </div>
+
+	</div>
+
+
+</template>
+
+<script>
+	
+export default {
+    
+    created() {
+
+        this.getProjects();
+
+    },
+
+    data() {
+        return {
+        	selected: 0,
+        	date: '',
+        	time: '00:00',
+        	comment: '',
+            projects: [],
+            response: null
+        }
+    },
+
+    methods: {
+
+    	reset() {
+        	this.selected = 0;
+        	this.date = '';
+        	this.time = '';
+        	this.comment = '';
+    	},
+        
+        getProjects(){
+            axios.get('/projects/list')
+                .then(response => {
+                    this.projects = response.data;
+                })
+                .catch(errors => {
+                    console.log(errors);
+                });
+        },
+
+        store() {
+
+        	this.response = null;
+
+        	let vm = this;
+
+        	var post = {
+        		project_id: this.selected.id,
+        		date: this.date,
+        		time: this.time,
+        		comment: this.comment
+        	}
+
+        	axios.post('/hours', post)
+                .then(response => {
+                    console.log(response.data);
+                    vm.response = response.data;
+                    vm.reset();
+                })
+                .catch(errors => {
+                    console.log(errors);
+                });
+
+        }
+
+    }
+
+}
+
+</script>
