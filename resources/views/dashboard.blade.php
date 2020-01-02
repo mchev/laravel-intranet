@@ -3,35 +3,20 @@
 @section('content')
 <div class="container-fluid">
 
-    <div class="row justify-content-center">
+    <h1>Mon tableau de bord</h1>
 
-        <div class="col-xl-4 mb-3">
+    <div class="row justify-content-center pt-4">
 
-            <add-hours></add-hours>
-
-        </div>
-
-        <div class="col-xl-4 mb-3">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                    
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-4">
+        <div class="col-xl-3">
             <board type="user"></board>
         </div>
 
+        <div class="col-xl-4 mb-3">
+            <add-hours></add-hours>
+        </div>
+
+        <div class="col-xl-5 mb-3">
+        </div>
 
     </div>
 </div>

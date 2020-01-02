@@ -21,7 +21,11 @@ class Task extends Model
     }
 
     public function comments() {
-    	return $this->hasMany(TaskComment::class)->orderBy('created_at', 'DESC');
+        return $this->hasMany(TaskComment::class)->orderBy('created_at', 'DESC');
+    }
+
+    public function checklists() {
+        return $this->hasMany(TaskChecklist::class)->orderBy('created_at', 'DESC');
     }
 
     public function tags() {
@@ -29,7 +33,12 @@ class Task extends Model
     }
 
     public function project() {
-        return $this->belongsTo(Project::class)->select('id', 'parent_id', 'name')->with('parent');
+        return $this->belongsTo(Project::class)->select('id', 'customer_id', 'name')->with('customer');
     }
+
+    public function checkedlist() {
+        return $this->hasMany(TaskChecklist::class)->selectRaw('task_id, count(*) as count')->where('checked', true)->groupBy('task_id');
+    }
+
 
 }

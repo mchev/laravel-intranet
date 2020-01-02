@@ -40,7 +40,7 @@ class User extends Authenticatable
 
 
     public function tasks() {
-        return $this->hasMany(Task::class, 'board_id')->orderBy('order', 'ASC')->orderBy('updated_at', 'DESC')->with('project')->with('tags');
+        return $this->hasMany(Task::class, 'board_id')->orderBy('order', 'ASC')->orderBy('updated_at', 'DESC')->with('project')->with('tags')->with('checkedlist');
     }
     
 }

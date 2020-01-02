@@ -9,6 +9,19 @@ body {
   font-size: $font-size-base;
 }
 
+.btn-secondary {
+  @include button-variant($secondary, darken($secondary, 7.5%), darken($secondary, 10%), lighten($secondary,5%), lighten($secondary, 10%), darken($secondary,30%));
+  color: #172b4d;
+}
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
+  color: #172b4d;
+}
+.badge-secondary {
+  color: #172b4d;
+}
+
 #sidebar-wrapper {
   min-height: 100vh;
   margin-left: -15rem;

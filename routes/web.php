@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
 		return view('tasks.index');
 	})->name('boards.index');
 
+	Route::resource('checklists', 'TaskChecklistController');
+
     Route::get('/board/{board}/tasks', 'BoardController@tasks');    
     Route::resource('/boards', 'BoardController');
 
@@ -41,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/task/{task}/tags', 'TaskController@tags');
 	Route::resource('/task', 'TaskController');
 	Route::resource('/tags', 'TagController');
+
 
 	Route::resource('passwords', 'PasswordController');
 

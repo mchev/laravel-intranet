@@ -23,6 +23,7 @@
                                     <div class="list-card-details">
 
                                         <div class="list-card-labels">
+                                            <span v-if="task.project" class="card-label tag card-label-null">{{ task.project.customer.name }} - {{ task.project.name }}</span>
                                             <div v-for="tag in task.tags" class="card-label tag" :class="'card-label-' + tag.color">{{ tag.label }}</div>
                                         </div>
 
@@ -31,12 +32,8 @@
                                         </div>
 
                                         <div class="badges">
-                                            <template v-if="task.project">
-                                                <span v-if="task.project.parent" class="badge badge-secondary">{{ task.project.parent.name }} - {{ task.project.name }}</span>
-                                                <span v-else class="badge badge-secondary">{{ task.project.name }}</span>
-                                            </template>
-                                            <div v-if="task.due_date" class="badge badge-default" :title="task.due_date | moment('calendar')">
-                                                <i class="far fa-clock"></i> {{ task.due_date | moment("from", "now") }}
+                                            <div v-if="task.due_date" class="badge badge-default" :title="task.due_date | moment('from', 'now')">
+                                                <i class="far fa-clock"></i> {{ task.due_date | moment("calendar") }}
                                             </div>
                                         </div>
 
@@ -99,7 +96,7 @@
                         <textarea class="form-control description-content" v-model="editingTask.description" @blur="endEditing" placeholder="Ajouter une description plus détaillée...">{{ editingTask.description }}</textarea>
 
                         <h4><i class="fas fa-tasks"></i> Checklist</h4>
-
+                        <task-checklists :task="editingTask" :key="editingTask.id"></task-checklists>
 
                     </div>
 

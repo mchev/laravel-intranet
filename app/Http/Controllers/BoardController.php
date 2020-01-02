@@ -23,11 +23,11 @@ class BoardController extends Controller
 
         if($request->ajax()){
 
-        	$boards = User::with('tasks')->get()->toArray();
-            $projects = \App\Project::doesntHave('children')->orWhere('parent_id', '!=', null)->select('id', 'parent_id', 'name')->with('parent')->get();
+        	$boards = User::with('tasks')->orderBy('name')->get()->toArray();
+            $projects = \App\Project::select('id', 'customer_id', 'name')->with('customer')->get();
 
             $projects->map(function($project) {
-                $project->name = ($project->parent) ? $project->parent->name . ' - ' . $project->name : $project->name;
+                $project->name = $project->customer->name . ' - ' . $project->name;
                 return $project;
             });
 

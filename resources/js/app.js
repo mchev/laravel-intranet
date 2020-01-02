@@ -49,6 +49,7 @@ Vue.component('chronometer', require('./components/Chronometer.vue').default);
 
 Vue.component('board', require('./components/Board.vue').default);
 Vue.component('tags', require('./components/Tags.vue').default);
+Vue.component('task-checklists', require('./components/TaskChecklists.vue').default);
 
 
 window.Fire = new Vue();
