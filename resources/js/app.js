@@ -43,6 +43,9 @@ Vue.component('hours-list', require('./components/HoursList.vue').default);
 Vue.component('passwords-list', require('./components/PasswordsList.vue').default);
 Vue.component('users-list', require('./components/UsersList.vue').default);
 
+Vue.component('quotes-list', require('./components/QuotesList.vue').default);
+Vue.component('invoices-list', require('./components/InvoicesList.vue').default);
+
 Vue.component('add-hours', require('./components/AddHours.vue').default);
 Vue.component('chronometer', require('./components/Chronometer.vue').default);
 

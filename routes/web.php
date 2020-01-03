@@ -47,5 +47,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::resource('passwords', 'PasswordController');
 
+	Route::get('accounts', function() {
+		return view('accounts.index');
+	})->name('accounts.index');
+
+
 
 });
