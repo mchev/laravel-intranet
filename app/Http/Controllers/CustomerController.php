@@ -30,10 +30,12 @@ class CustomerController extends Controller
     {
         if($request->ajax()){
 
+            $request->order = (isset($request->order)) ? $request->order : 'name';
+
             if ($request->q) {
                 $customers = Customer::where('name', 'like', '%' . $request->q . '%')->orderBy($request->order)->paginate($request->paginate);
             } else {
-                $customers = Customer::orderBy('name')->orderBy($request->order)->paginate($request->paginate);
+                $customers = Customer::orderBy($request->order)->paginate($request->paginate);
             }
 
             return response()->json($customers);

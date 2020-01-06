@@ -22,6 +22,11 @@ body {
   color: #172b4d;
 }
 
+.modal-dialog.modal-lg {
+  width: 80%;
+  max-width: 80%;
+}
+
 #sidebar-wrapper {
   min-height: 100vh;
   margin-left: -15rem;

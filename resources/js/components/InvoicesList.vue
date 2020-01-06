@@ -9,7 +9,7 @@
             </div>
 
             <div class="col-md-6 text-right">
-                <a href="/projects/create"  class="btn btn-success" title="Créer une facture"><i class="fas fa-plus"></i> Créer une facture</a>
+                <button class="btn btn-success" title="Créer une facture" data-toggle="modal" data-target=".invoice-modal-lg"><i class="fas fa-plus"></i> Créer une facture</button>
             </div>
 
         </div>

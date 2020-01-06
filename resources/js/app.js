@@ -34,9 +34,10 @@ window.moment = moment;
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+/*
 Vue.component('customers-list', require('./components/CustomersList.vue').default);
 Vue.component('projects-list', require('./components/ProjectsList.vue').default);
 Vue.component('hours-list', require('./components/HoursList.vue').default);
@@ -45,6 +46,7 @@ Vue.component('users-list', require('./components/UsersList.vue').default);
 
 Vue.component('quotes-list', require('./components/QuotesList.vue').default);
 Vue.component('invoices-list', require('./components/InvoicesList.vue').default);
+Vue.component('invoice', require('./components/accounts/Invoice.vue').default);
 
 Vue.component('add-hours', require('./components/AddHours.vue').default);
 Vue.component('chronometer', require('./components/Chronometer.vue').default);
@@ -53,7 +55,7 @@ Vue.component('chronometer', require('./components/Chronometer.vue').default);
 Vue.component('board', require('./components/Board.vue').default);
 Vue.component('tags', require('./components/Tags.vue').default);
 Vue.component('task-checklists', require('./components/TaskChecklists.vue').default);
-
+*/
 
 window.Fire = new Vue();
 
