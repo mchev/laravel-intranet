@@ -161,6 +161,6 @@ class HourController extends Controller
      */
     public function destroy(Hour $hour)
     {
-        //
+        $hour->delete();
     }
 }

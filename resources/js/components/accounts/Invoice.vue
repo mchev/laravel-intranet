@@ -40,7 +40,8 @@
 	            	<v-select :options="customers" @search="getCustomers" v-model="invoice.customer" label="name" placeholder="Choisir un client"></v-select>
 	            	<template v-if="invoice.customer">
 	            		{{ invoice.customer.street }}<br>
-	            		{{ invoice.customer.zip_code }} {{ invoice.customer.city }}<br>	            		
+	            		{{ invoice.customer.zip_code }} {{ invoice.customer.city }}<br>
+	            		Référence client : CL-{{ invoice.customer.id }}
 	            	</template>
 	            </td>
 	          </tr>

@@ -26,6 +26,7 @@
                         <th>Date</th>
                         <th>Temps</th>
                         <th>Commentaire</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -36,6 +37,7 @@
                         <td>{{ row.date | moment('DD/MM/Y') }}</td>
                         <td>{{ row.time }}</td>
                         <td>{{ row.comment }}</td>
+                        <th><button class="btn btn-default text-danger" @click="deleteHour(row)"><i class="far fa-trash-alt"></i></button></th>
                     </tr>
                 </tbody>
 
@@ -129,6 +131,12 @@
                 this.pagination.currentPage = id;
                 this.fetch();
             },
+
+            deleteHour(hour) {
+                axios.delete('/hours/' + hour.id).then(response => {
+                    this.fetch();
+                })
+            }
 
         },
 
