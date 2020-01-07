@@ -14,11 +14,11 @@
 	            <td>
 	            	<button class="btn btn-secondary btn-block btn-lg">FACTURE</button>
 	              Facture #123<br>
-	              <div class="float-right form-group form-inline">
+	              <div class="form-group">
 	              	<label class="mr-2">Date : </label>
 	              	<input class="form-control" type="date" v-model="created_at" @change="updateExpiration">
 	              </div>
-	              <div class="float-right form-group form-inline">
+	              <div class="form-group">
 	              	<label class="mr-2">Date limite : </label>
 	              	<input class="form-control" type="date" v-model="expire_at">
 	              </div>
@@ -33,7 +33,9 @@
 	        <table>
 	          <tr>
 	            <td>
-	              Sparksuite, Inc.<br> 12345 Sunny Road<br> Sunnyville, CA 12345
+	            	{{ settings.company_name }}<br>
+	            	{{ settings.company_street }}<br>
+	            	{{ settings.company_zip_code }} {{ settings.company_city }}	            	
 	            </td>
 
 	            <td>
@@ -153,6 +155,7 @@
 
         data(){
             return {
+            	settings: window.settings,
             	customers: [],
             	tva: 20,
             	currency: '€',

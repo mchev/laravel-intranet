@@ -21,7 +21,17 @@ class Doc extends Model
 
     public function customer()
     {
-    	return $this->hasOne('App\Customer');
+        return $this->hasOne('App\Customer');
+    }
+
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
+
+    public function items()
+    {
+        return $this->hasMany('App\DocItem');
     }
 
 }

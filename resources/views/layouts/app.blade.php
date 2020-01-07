@@ -12,6 +12,10 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <script>
+        window.settings = {!! json_encode($settings) !!};
+    </script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -21,7 +25,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     
 </head>
-<body>
+<body style="background-color: {{ $settings->background_color }}">
 
     <div id="app">
 
@@ -38,7 +42,7 @@
 
                 @include('navbar')
 
-                <div class="container-fluid h-100 pt-4" style="background-color: rgb(176, 70, 50);">
+                <div class="container-fluid h-100 pt-4">
                     @yield('content')
                 </div>
 

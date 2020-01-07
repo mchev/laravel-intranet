@@ -43,6 +43,7 @@
                         </form>
                     </div>
                 </li>
+                <li class="nav-item"><a class="nav-link" title="Paramètres" href="{{ route('settings.index') }}"><i class="fas fa-sliders-h"></i></a></li>
             @endguest
         </ul>
     </div>

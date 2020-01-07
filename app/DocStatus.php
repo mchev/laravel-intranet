@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class DocStatus extends Model
 {
-    //
+
+    public function docs()
+    {
+        return $this->belongsToMany('App\Doc');
+    }
+
 }

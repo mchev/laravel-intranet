@@ -1,5 +1,5 @@
 <div class="bg-light border-right" id="sidebar-wrapper">
-  <div class="sidebar-heading"><a href="/">{{ config('app.name', 'Laravel') }}</a></div>
+  <div class="sidebar-heading"><a href="/">{{ $settings->company_name }}</a></div>
   <div class="list-group list-group-flush">
     <a href="/" class="list-group-item list-group-item-action bg-light @if(Route::is('dashboard.*')) active @endif"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
     <a href="{{ route('customers.index') }}" class="list-group-item list-group-item-action bg-light @if(Route::is('customers.*')) active @endif"><i class="fas fa-user-tie"></i> Clients</a>
@@ -9,5 +9,6 @@
     <a href="{{ route('accounts.index') }}" class="list-group-item list-group-item-action bg-light @if(Route::is('accounts.*')) active @endif"><i class="fas fa-file-invoice"></i> Comptabilité</a>
     <a href="{{ route('passwords.index') }}" class="list-group-item list-group-item-action bg-light @if(Route::is('passwords.*')) active @endif"><i class="fas fa-unlock-alt"></i> Mots de passe</a>
     <a href="{{ route('users.index') }}" class="list-group-item list-group-item-action bg-light @if(Route::is('users.*')) active @endif"><i class="fas fa-users-cog"></i> Utilisateurs</a>
+    <a href="{{ route('settings.index') }}" class="list-group-item list-group-item-action bg-light @if(Route::is('settings.*')) active @endif"><i class="fas fa-sliders-h"></i> Paramètres</a>
   </div>
 </div>

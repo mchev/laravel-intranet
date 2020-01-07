@@ -51,6 +51,8 @@ Route::group(['middleware' => ['auth']], function () {
 		return view('accounts.index');
 	})->name('accounts.index');
 
+	Route::post('settings/upload', 'SettingController@upload');
+	Route::resource('settings', 'SettingController');
 
 
 });
