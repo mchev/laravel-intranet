@@ -33,7 +33,7 @@
 
                 <div class="table-responsive">
 
-                    <table class="table">
+                    <table class="table table-striped">
 
                         <thead>
                             <tr>
@@ -41,6 +41,7 @@
                                 <th>Nom</th>
                                 <th>Type</th>
                                 <th>Statut</th>
+                                <th>Budget</th>
                                 <th>Heures</th>
                                 <th>Date de création</th>
                                 <th>Dernière modification</th>
@@ -54,6 +55,7 @@
                                 <td><a :href="'/projects/' + project.id + '/edit'">{{ project.name }}</a></td>
                                 <td>{{ project.type.label }}</td>
                                 <td>{{ project.state.label }}</td>
+                                <td>{{ project.budget }} <span v-if="project.budget">€</span></td>
                                 <td>{{ convertSeconds(project.total_seconds) }}</td>
                                 <td>{{ project.created_at | moment('DD/MM/Y HH:mm') }}</td>
                                 <td>{{ project.updated_at | moment('DD/MM/Y HH:mm') }}</td>

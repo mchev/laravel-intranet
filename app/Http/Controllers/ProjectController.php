@@ -106,6 +106,7 @@ class ProjectController extends Controller
         $project->type_id = $request->type_id;
         $project->state_id = $request->state_id;
         $project->customer_id = $request->customer_id;
+        $project->budget = $request->budget;
         $project->user_id = auth()->user()->id;
 
         $project->save();
@@ -161,6 +162,7 @@ class ProjectController extends Controller
         $project->type_id = $request->type_id;
         $project->state_id = $request->state_id;
         $project->customer_id = $request->customer_id;
+        $project->budget = $request->budget;
 
         $project->save();
    

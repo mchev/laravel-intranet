@@ -30,7 +30,7 @@
 
 	          <div class="row">
 
-	          	<div class="col-md-4">
+	          	<div class="col-md-3">
 					<div class="form-group">
 						<label for="customer_id">Client</label>
 						<select class="form-control" name="customer_id" required>
@@ -41,7 +41,7 @@
 					</div>
 	          	</div>
 
-	          	<div class="col-md-4">
+	          	<div class="col-md-3">
 					<div class="form-group">
 						<label for="type_id">Type</label>
 						<select class="form-control" name="type_id" required>
@@ -52,7 +52,7 @@
 					</div>
 	          	</div>
 
-	          	<div class="col-md-4">
+	          	<div class="col-md-3">
 					<div class="form-group">
 						<label for="state_id">État</label>
 						<select class="form-control" name="state_id" required>
@@ -60,6 +60,13 @@
 								<option value="{{ $state->id }}">{{ $state->label }}</option>
 							@endforeach
 						</select>
+					</div>
+	          	</div>
+
+	          	<div class="col-md-3">
+					<div class="form-group">
+						<label for="budget">Budget</label>
+						<input class="form-control" type="number" step="any" name="budget">
 					</div>
 	          	</div>
 
