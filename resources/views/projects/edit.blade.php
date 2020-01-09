@@ -82,7 +82,7 @@
 
 				          <div class="form-group">
 				              <label for="description">Description</label>
-				              <textarea class="form-control" name="description">{{ $project->comment }}</textarea>
+				              <textarea class="form-control" name="description">{{ $project->description }}</textarea>
 				          </div>
 
 				          <button type="submit" class="float-right btn btn-primary ml-2">Enregistrer</button>

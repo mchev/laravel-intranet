@@ -18,6 +18,9 @@ Vue.component('datetime', VueCtkDateTimePicker);
 import swal from 'sweetalert2';
 window.swal = swal;
 
+import VueTextareaAutosize from 'vue-textarea-autosize'
+Vue.use(VueTextareaAutosize)
+
 const moment = require('moment')
 require('moment/locale/fr')
 Vue.use(require('vue-moment'), {

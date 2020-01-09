@@ -30,6 +30,7 @@
         "vue-ctk-date-time-picker": "^2.4.0",
         "vue-moment": "^4.1.0",
         "vue-select": "^3.4.0",
+        "vue-textarea-autosize": "^1.1.1",
         "vuedraggable": "^2.23.2"
     }
 }

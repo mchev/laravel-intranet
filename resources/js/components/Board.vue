@@ -93,7 +93,7 @@
                         <v-select :options="projects" @input="endEditing" v-model="editingTask.project_id" :reduce="name => name.id" label="name" class="mb-2" placeholder="Choisir un projet"></v-select>
 
                         <h4><i class="fas fa-align-left"></i> Description</h4>
-                        <textarea class="form-control description-content" v-model="editingTask.description" @blur="endEditing" placeholder="Ajouter une description plus détaillée...">{{ editingTask.description }}</textarea>
+                        <textarea-autosize class="form-control description-content" v-model="editingTask.description" @blur.native="endEditing" placeholder="Ajouter une description plus détaillée...">{{ editingTask.description }}</textarea-autosize>
 
                         <h4><i class="fas fa-tasks"></i> Checklist</h4>
                         <task-checklists :task="editingTask" :key="editingTask.id"></task-checklists>
