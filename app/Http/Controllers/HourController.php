@@ -99,8 +99,7 @@ class HourController extends Controller
 
         $request->validate([
             'project_id' => 'required|integer',
-            'date' => 'required|date',
-            'time' => 'required|date_format:H:i:s'
+            'date' => 'required|date'
         ]);
 
         $hour = new Hour;
