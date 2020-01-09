@@ -58,8 +58,7 @@ class HourController extends Controller
             }
             else
             {
-                $hours = Hour::where('user_id', auth()->user()->id)
-                    ->orderBy('date', 'DESC')
+                $hours = Hour::orderBy('date', 'DESC')
                     ->orderBy('updated_at', 'DESC')
                     ->with('project')
                     ->with('user')
@@ -118,27 +117,6 @@ class HourController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Hour  $hour
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Hour $hour)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Hour  $hour
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Hour $hour)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -149,7 +127,10 @@ class HourController extends Controller
      */
     public function update(Request $request, Hour $hour)
     {
-        //
+        $hour->time = $request->time;
+        $hour->comment = $request->comment;
+        $hour->update();
+        return response()->json($hour);
     }
 
     /**

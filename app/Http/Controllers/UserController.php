@@ -29,10 +29,12 @@ class UserController extends Controller
     {
         if($request->ajax()){
 
+            $request->order = (isset($request->order)) ? $request->order : 'name';
+
             if ($request->q) {
                 $users = User::where('name', 'like', '%' . $request->q . '%')->orderBy($request->order)->paginate($request->paginate);
             } else {
-                $users = User::orderBy('name')->orderBy($request->order)->paginate($request->paginate);
+                $users = User::orderBy($request->order)->paginate($request->paginate);
             }
 
             return response()->json($users);

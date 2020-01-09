@@ -28,6 +28,8 @@ Vue.use(require('vue-moment'), {
 })
 window.moment = moment;
 
+Vue.prototype.$userId = parseInt(document.querySelector("meta[name='user-id']").getAttribute('content'));
+
 
 /**
  * The following block of code may be used to automatically register your

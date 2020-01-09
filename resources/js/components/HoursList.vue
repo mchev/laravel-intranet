@@ -35,8 +35,14 @@
                         <td>{{ row.user.name }}</td>
                         <td v-if="!project">{{ row.project.customer.name }} - {{ row.project.name }}</td>
                         <td>{{ row.date | moment('DD/MM/Y') }}</td>
-                        <td>{{ row.time }}</td>
-                        <td>{{ row.comment }}</td>
+                        <td>
+                            <input v-if="$userId === row.user_id" class="form-control" type="time" readonly @dblclick="toggleReadonly" @keyup.enter="updateHour($event, row)" @blur="updateHour($event, row)" v-model="row.time"/>
+                            <span v-else>{{ row.time }}</span>
+                        </td>
+                        <td>
+                            <input v-if="$userId === row.user_id" class="form-control" type="text" readonly @dblclick="toggleReadonly" @keyup.enter="updateHour($event, row)" @blur="updateHour($event, row)" v-model="row.comment"/>
+                            <span v-else>{{ row.comment }}</span>
+                        </td>
                         <th><button class="btn btn-default text-danger" @click="deleteHour(row)"><i class="far fa-trash-alt"></i></button></th>
                     </tr>
                 </tbody>
@@ -81,6 +87,7 @@
 
         data(){
             return {
+                users: [],
                 project_id: (this.project) ? this.project.id : null,
                 rows: [],
                 pagination: {
@@ -132,11 +139,27 @@
                 this.fetch();
             },
 
+            updateHour(event, hour) {
+                event.preventDefault();
+                event.target.setAttribute('readonly', 'readonly');
+                axios.patch('/hours/' + hour.id, hour).then(response => {
+                    this.fetch();
+                })
+            },
+
             deleteHour(hour) {
                 axios.delete('/hours/' + hour.id).then(response => {
                     this.fetch();
                 })
-            }
+            },
+
+            toggleReadonly(event){
+                event.preventDefault()
+                if(event.target.getAttribute('readonly') == 'readonly'){
+                    event.target.removeAttribute('readonly')
+                }
+            },
+
 
         },
 
