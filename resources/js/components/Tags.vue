@@ -39,8 +39,8 @@
         data(){
             return {
             	tags: {},
-                taskObj: this.task,
                 newTag: false,
+                updatedTask : null,
             	tag: {
             		label: '',
             		color: '',
@@ -61,9 +61,9 @@
             },
 
             attachTag(tag_id) {
-	            axios.post('/task/' + this.taskObj.id + '/tags', {tag_id: [tag_id]}).then(response => {
-	                this.taskObj = response.data;
-                    this.$emit('update:task', this.taskObj);
+	            axios.post('/task/' + this.task.id + '/tags', {tag_id: [tag_id]}).then(response => {
+	                this.updatedTask = response.data;
+                    this.$emit('update:task', this.updatedTask);
 	            });
             },
 
@@ -71,6 +71,8 @@
         },
 
         mounted() {
+
+            console.log(this.task.id);
 
             axios.get('tags').then(response => {
                 this.tags = response.data;

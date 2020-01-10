@@ -20,7 +20,7 @@ class Project extends Model
 
     public function customer()
     {
-        return $this->belongsTo('App\Customer')->select('id', 'name');
+        return $this->belongsTo('App\Customer')->select('id', 'name')->orderBy('name');
     }
 
     public function type()

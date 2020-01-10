@@ -62,9 +62,6 @@
                 axios.get('/checklists?task_id=' + this.task.id).then(response => {
                     this.checklist = response.data.items;
                     this.percentage = Math.ceil(response.data.checked / this.checklist.length * 100);
-                    console.log(response.data.checked);
-                    console.log(this.checklist.length);
-                    console.log(this.percentage);
                 });
             },
 

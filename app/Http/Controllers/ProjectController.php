@@ -58,12 +58,12 @@ class ProjectController extends Controller
 
     public function list()
     {
-        $projects = Project::select('id', 'customer_id', 'name')->with('customer')->get();
+        $projects = Project::select('id', 'customer_id', 'name')->orderBy('updated_at')->with('customer')->get();
 
         $projects->map(function($project) {
             $project->name = $project->customer->name . ' - ' . $project->name;
             return $project;
-        });
+        })->sortBy('name');
 
         return response()->json($projects);
     }

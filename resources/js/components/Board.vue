@@ -18,7 +18,7 @@
 
                             <transition-group type="transition" :id="board.id" :name="!drag ? 'flip-list' : null">
 
-                                <a v-if="task" class="list-card" v-for="task in board.tasks" :key="task.id" @click="editTask(task)" :id="task.id" data-toggle="modal" data-target="#editTaskModal">
+                                <a v-if="task" class="list-card" v-for="task in board.tasks" :key="task.id" @click="editingTask = task" :id="task.id" data-toggle="modal" data-target="#editTaskModal">
 
                                     <div class="list-card-details">
 
@@ -75,7 +75,7 @@
 
         <!-- MODALS -->
         <div v-if="editingTask" class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" v-text="editingTask.name" contenteditable @keydown.enter.prevent="editTitle" @blur="editTitle"></h5>
@@ -132,7 +132,7 @@
         <div v-if="editingTask" class="modal" id="tagsModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
-                    <tags :task.sync="editingTask"></tags>
+                    <tags :task="editingTask" v-on:update:task="updateTag"></tags> 
                 </div>
             </div>
         </div>
@@ -225,10 +225,6 @@
                 })
             },
 
-            editTask(task){
-                this.editingTask = task;
-            },
-
             editTitle(event) {
                 var src = event.target.innerText
                 this.editingTask.name = src;
@@ -262,6 +258,12 @@
                     })
                }
 
+            },
+
+            updateTag($event) {
+                this.editingTask = $event;
+                $('#tagsModal').modal('hide');
+                this.fetch();
             },
 
         },
