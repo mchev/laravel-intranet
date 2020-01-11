@@ -45,7 +45,7 @@
 
                 @include('navbar')
 
-                <div class="container-fluid h-100 pt-4">
+                <div class="container-fluid pt-4">
                     @yield('content')
                 </div>
 
