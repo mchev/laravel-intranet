@@ -36,8 +36,12 @@ class Task extends Model
         return $this->belongsTo(Project::class)->select('id', 'customer_id', 'name')->with('customer');
     }
 
-    public function checkedlist() {
-        return $this->hasMany(TaskChecklist::class)->selectRaw('task_id, count(*) as count')->where('checked', true)->groupBy('task_id');
+    public function checklist_checked() {
+        return $this->hasMany(TaskChecklist::class)->where('checked', true);
+    }
+
+    public function checklist_total() {
+        return $this->hasMany(TaskChecklist::class);
     }
 
 

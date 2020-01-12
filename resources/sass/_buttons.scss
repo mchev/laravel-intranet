@@ -1,0 +1,65 @@
+.btn-secondary {
+  @include button-variant($secondary, darken($secondary, 7.5%), darken($secondary, 10%), lighten($secondary,5%), lighten($secondary, 10%), darken($secondary,30%));
+  color: #172b4d;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
+  color: #172b4d;
+}
+
+.btn-green {
+  @include button-variant($green, darken($green, 7.5%), darken($green, 10%), lighten($green,5%), lighten($green, 10%), darken($green,30%));
+  color: #172b4d;
+}
+
+.btn-yellow {
+  @include button-variant($yellow, darken($yellow, 7.5%), darken($yellow, 10%), lighten($yellow,5%), lighten($yellow, 10%), darken($yellow,30%));
+  color: #172b4d;
+}
+
+.btn-orange {
+  @include button-variant($orange, darken($orange, 7.5%), darken($orange, 10%), lighten($orange,5%), lighten($orange, 10%), darken($orange,30%));
+  color: #172b4d;
+}
+
+.btn-red {
+  @include button-variant($red, darken($red, 7.5%), darken($red, 10%), lighten($red,5%), lighten($red, 10%), darken($red,30%));
+  color: #172b4d;
+}
+
+.btn-purple {
+  @include button-variant($purple, darken($purple, 7.5%), darken($purple, 10%), lighten($purple,5%), lighten($purple, 10%), darken($purple,30%));
+  color: #172b4d;
+}
+
+.btn-blue {
+  @include button-variant($blue, darken($blue, 7.5%), darken($blue, 10%), lighten($blue,5%), lighten($blue, 10%), darken($blue,30%));
+  color: #172b4d;
+}
+
+.btn-sky {
+  @include button-variant($sky, darken($sky, 7.5%), darken($sky, 10%), lighten($sky,5%), lighten($sky, 10%), darken($sky,30%));
+  color: #172b4d;
+}
+
+.btn-lime {
+  @include button-variant($lime, darken($lime, 7.5%), darken($lime, 10%), lighten($lime,5%), lighten($lime, 10%), darken($lime,30%));
+  color: #172b4d;
+}
+
+.btn-pink {
+  @include button-variant($pink, darken($pink, 7.5%), darken($pink, 10%), lighten($pink,5%), lighten($pink, 10%), darken($pink,30%));
+  color: #172b4d;
+}
+
+.btn-black {
+  @include button-variant($black, darken($black, 7.5%), darken($black, 10%), lighten($black,5%), lighten($black, 10%), darken($black,30%));
+  color: #172b4d;
+}
+
+.btn-null {
+  @include button-variant($null, darken($null, 7.5%), darken($null, 10%), lighten($null,5%), lighten($null, 10%), darken($null,30%));
+  color: #172b4d;
+}

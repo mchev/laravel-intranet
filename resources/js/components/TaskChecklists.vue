@@ -77,7 +77,7 @@
             storeItem() {
                 axios.post('/checklists', this.newItem).then(response => {
                     this.creatingItem = false;
-                    this.fetch();
+                    this.emitItem();
                 });
             },
 
@@ -85,14 +85,19 @@
                 item.checked = (parseInt(item.checked)) ? 0 : 1;
 
                 axios.patch('/checklists/' + item.id, item).then(response => {
-                    this.fetch();
+                    this.emitItem();
                 });
             },
 
             deleteItem(item) {
                 axios.delete('/checklists/' + item.id).then(response => {
-                    this.fetch();
+                    this.emitItem();
                 });
+            },
+
+            emitItem(item) {
+                this.fetch();
+                this.$emit('update:checklist', true);
             }
 
 

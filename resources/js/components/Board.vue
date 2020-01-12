@@ -32,6 +32,9 @@
                                         </div>
 
                                         <div class="badges">
+                                            <div v-if="task.checklist_total_count" class="badge badge-success">
+                                                <i class="far fa-check-square"></i> {{ task.checklist_checked_count }} / {{ task.checklist_total_count }}
+                                            </div>
                                             <div v-if="task.due_date" class="badge badge-default" :title="task.due_date | moment('from', 'now')">
                                                 <i class="far fa-clock"></i> {{ task.due_date | moment("calendar") }}
                                             </div>
@@ -64,7 +67,7 @@
                     </div>
 
                     <div v-if="!creatingTask || creatingTask.id !== board.id" class="card-composer-container">
-                        <button class="btn btn-board btn-sm" @click="createTask(board)"><i class="fas fa-plus"></i> Ajouter une autre carte</button>
+                        <button class="btn btn-board btn-sm" @click="createTask($event, board)"><i class="fas fa-plus"></i> Ajouter une autre carte</button>
                     </div>
 
                 </div>
@@ -96,7 +99,7 @@
                         <textarea-autosize class="form-control description-content" v-model="editingTask.description" @blur.native="endEditing" placeholder="Ajouter une description plus détaillée...">{{ editingTask.description }}</textarea-autosize>
 
                         <h4><i class="fas fa-tasks"></i> Checklist</h4>
-                        <task-checklists :task="editingTask" :key="editingTask.id"></task-checklists>
+                        <task-checklists :task="editingTask" :key="editingTask.id" v-on:update:checklist="updateChecklist"></task-checklists>
 
                     </div>
 
@@ -177,9 +180,12 @@
                 });
             },
 
-            createTask(board) {
+            createTask(event, board) {
 
                 this.creatingTask = board;
+                // Scroll to bottom (to fix)
+                var list = $(event.target).parent().parent().find('.list-cards');
+                list.scrollTop(list.height());
 
             },
 
@@ -263,6 +269,10 @@
             updateTag($event) {
                 this.editingTask = $event;
                 $('#tagsModal').modal('hide');
+                this.fetch();
+            },
+
+            updateChecklist($event) {
                 this.fetch();
             },
 
