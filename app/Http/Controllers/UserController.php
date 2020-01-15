@@ -46,7 +46,27 @@ class UserController extends Controller
         }
     }
 
-    public function board() {
+    /**       
+    * Get the user hours by week or month
+    *
+    * @param  Illuminate\Http\Request $request
+    * @return Response
+    */
+    public function hours(Request $request)
+    {
+
+        $week = auth()->user()->weekHours();
+        $month = auth()->user()->monthHours();
+
+        return response()->json([
+            'week' => $week,
+            'month' => $month
+        ]);
+    }
+
+
+    public function board()
+    {
 
         $boards = User::where('id', auth()->user()->id)->with('tasks')->get()->toArray();
         $projects = \App\Project::doesntHave('children')->orWhere('parent_id', '!=', null)->select('id', 'parent_id', 'name')->with('parent')->get();
@@ -63,7 +83,8 @@ class UserController extends Controller
 
     }
 
-    public function create() {
+    public function create()
+    {
         return view('users.create');
     }
 

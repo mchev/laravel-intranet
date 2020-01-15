@@ -10,6 +10,7 @@
         </div>
 
         <div class="col-xl-4 mb-3">
+            <dashboard-hours></dashboard-hours>
             <add-hours></add-hours>
         </div>
 

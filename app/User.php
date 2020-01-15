@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -47,6 +49,18 @@ class User extends Authenticatable
                     ->with('tags')
                     ->withCount('checklist_total')
                     ->withCount('checklist_checked');
+    }
+
+    public function weekHours() {
+        return $this->hasMany(Hour::class)
+                    ->whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+                    ->sum(DB::raw("TIME_TO_SEC(time)"));
+    }
+
+    public function monthHours() {
+        return $this->hasMany(Hour::class)
+                    ->whereBetween('date', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])
+                    ->sum(DB::raw("TIME_TO_SEC(time)"));
     }
     
 }

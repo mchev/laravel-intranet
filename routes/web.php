@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::resource('hours', 'HourController');
 
+	Route::get('/user/hours', 'UserController@hours');
 	Route::get('/user/board', 'UserController@board');
 	Route::get('/users/list', 'UserController@getUsers');
 	Route::resource('users', 'UserController');

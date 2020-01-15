@@ -104,7 +104,7 @@
                 ],
                 rows: [],
                 pagination: {
-                    perPage: 4,
+                    perPage: 10,
                     currentPage: 1,
                     total: 0,
                     nextPage: '',
