@@ -32,12 +32,13 @@
 
 				<div class="col-md-6">
 					<label>Date</label>
-					<input type="date" v-model="date" class="form-control" required>
+                    <datetime v-model="date" type="date" formatted="DD/MM/YYYY" auto-close no-button no-header only-hour noLabel format="YYYY-MM-DD"/>
+
 				</div>
 
 				<div class="col-md-6">
 					<label>Temps</label>
-					<input type="time" v-model="time" class="form-control" required>
+                    <datetime v-model="time" type="time" formatted="HH:mm" no-header only-time minute-interval="15" noLabel format="HH:mm"/>
 				</div>
 
 			</div>
@@ -73,7 +74,7 @@ export default {
     data() {
         return {
         	selected: 0,
-        	date: '',
+        	date: moment().format('YYYY-MM-DD'),
         	time: '00:00',
         	comment: '',
             projects: [],

@@ -111,7 +111,7 @@
                         </button>
                         <hr>
                         <h6>Date limite</h6>
-                        <datetime v-model="editingTask.due_date" type="datetime" v-on:validate="endEditing" noLabel format="YYYY-MM-DD HH:mm:ss"/>
+                        <datetime v-model="editingTask.due_date" type="datetime" v-on:validate="endEditing" minute-interval="15" no-weekends-days noLabel disabled-hours="['00','01','02','03','04','05','06','07','19','20','21','22','23']" format="YYYY-MM-DD HH:mm:ss"/>
                         <template v-if="editingTask.project">
                             <hr>
                             <h6>Chronomètre</h6>
