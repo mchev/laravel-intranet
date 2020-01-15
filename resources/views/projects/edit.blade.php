@@ -31,6 +31,11 @@
 				          <div class="form-group">
 				              @csrf
 				              @method('PUT')
+				              <label for="ref">Numéro de dossier / Référence</label>
+				              <input type="number" class="form-control" name="ref" value="{{ $project->ref }}"/>
+				          </div>
+
+				          <div class="form-group">
 				              <label for="name">Nom du projet</label>
 				              <input type="text" class="form-control" name="name" value="{{ $project->name }}"/>
 				          </div>

@@ -36,6 +36,9 @@ class ProjectController extends Controller
                     ->orWhereHas('projects', function ($query) use ($request) {
                         $query->where('name', 'like', '%' . $request->q . '%');
                     })
+                    ->orWhereHas('projects', function ($query) use ($request) {
+                        $query->where('ref', 'like', '%' . $request->q . '%');
+                    })
                     ->orderBy($request->order)
                     ->with('projects')
                     ->paginate($request->paginate);
@@ -151,12 +154,14 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $request->validate([
+            'ref' => 'required|integer',
             'name' => 'required|max:255',
             'type_id' => 'required|integer',
             'state_id' => 'required|integer',
             'customer_id' => 'required|integer'
         ]);
 
+        $project->ref = $request->ref;
         $project->name = $request->name;
         $project->description = $request->description;
         $project->type_id = $request->type_id;

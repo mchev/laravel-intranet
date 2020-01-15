@@ -5,7 +5,7 @@
         <div class="row mb-3">
 
             <div class="col-md-6">
-                <input type="text" class="form-control" v-model="query" @keyup="fetch" placeholder="Rechercher">
+                <input type="text" class="form-control" v-model="query" @keyup="fetch" placeholder="Rechercher (Client, Nom, Référence)">
             </div>
 
             <div class="col-md-6 text-right">
@@ -37,7 +37,7 @@
 
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Référence</th>
                                 <th>Nom</th>
                                 <th>Type</th>
                                 <th>Statut</th>
@@ -51,7 +51,7 @@
 
                         <tbody>
                             <tr class="pl-2" v-for="project in customer.projects">
-                                <td>{{ project.id }}</td>
+                                <td>{{ project.ref }}</td>
                                 <td><a :href="'/projects/' + project.id + '/edit'">{{ project.name }}</a></td>
                                 <td>{{ project.type.label }}</td>
                                 <td>{{ project.state.label }}</td>
