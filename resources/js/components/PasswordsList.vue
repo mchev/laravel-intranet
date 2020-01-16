@@ -14,69 +14,65 @@
 
         </div>
 
-        <div class="table-responsive">
+        <table class="table bg-white table-striped">
+            
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Type</th>
+                    <th>Nom</th>
+                    <th>Url</th>
+                    <th></th>
+                    <th>Identifiant</th>
+                    <th>Mot de passe</th>
+                    <th></th>
+                </tr>
+            </thead>
 
-            <table class="table bg-white table-striped">
-                
-                <thead>
-                    <tr>
-                        <th>Client</th>
-                        <th>Type</th>
-                        <th>Nom</th>
-                        <th>Url</th>
-                        <th></th>
-                        <th>Identifiant</th>
-                        <th>Mot de passe</th>
-                        <th></th>
-                    </tr>
-                </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <v-select :options="customers" v-model="create.customer_id" label="name">
+                            <template #search="{attributes, events}">
+                                <input
+                                    class="vs__search"
+                                    :required="!create.customer_id"
+                                    v-bind="attributes"
+                                    v-on="events"
+                                />
+                            </template>                 
+                        </v-select>                        
+                    </td>
+                    <td>
+                        <select v-model="create.type" class="form-control">
+                            <option value="Wordpress">Wordpress</option>
+                            <option value="FTP">FTP</option>
+                            <option value="SQL">SQL</option>
+                            <option value="OVH">OVH</option>
+                            <option value="Email">Email</option>
+                            <option value="Autres">Autres</option>
+                        </select>
+                    </td>
+                    <td><input type="text" v-model="create.name" class="form-control"></td>
+                    <td><input type="text" v-model="create.url" class="form-control" placeholder="https://"></td>
+                    <td></td>
+                    <td><input type="text" v-model="create.user" class="form-control"></td>
+                    <td><input type="text" v-model="create.password" class="form-control"></td>
+                    <td><button class="btn btn-success" @click="storePassword"><i class="fas fa-plus"></i></button></td>
+                </tr>
+                <tr v-for="(row, index) in rows">
+                    <td>{{ row.customer.name }}</td>
+                    <td>{{ row.type }}</td>
+                    <td><input class="form-control" type="text" readonly @dblclick="toggleReadonly" @keyup.enter="updatePassword($event, row)" @blur="updatePassword($event, row)" v-model="row.name"/></td>
+                    <td><input class="form-control" type="text" readonly @dblclick="toggleReadonly" @keyup.enter="updatePassword($event, row)" @blur="updatePassword($event, row)" v-model="row.url"/></td>
+                    <td><a :href="row.url" class="btn btn-sm btn-secondary" target="_blank"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><input class="form-control" type="text" readonly @dblclick="toggleReadonly" @keyup.enter="updatePassword($event, row)" @blur="updatePassword($event, row)" v-model="row.user"/></td>
+                    <td><input class="form-control" type="text" readonly @dblclick="toggleReadonly" @keyup.enter="updatePassword($event, row)" @blur="updatePassword($event, row)" v-model="row.password"/></td>
+                    <td><button class="btn btn-sm btn-danger" @click="deletePassword(row, index)"><i class="far fa-trash-alt"></i></button></td>
+                </tr>
+            </tbody>
 
-                <tbody>
-                    <tr>
-                        <td>
-                            <v-select :options="customers" v-model="create.customer_id" label="name">
-                                <template #search="{attributes, events}">
-                                    <input
-                                        class="vs__search"
-                                        :required="!create.customer_id"
-                                        v-bind="attributes"
-                                        v-on="events"
-                                    />
-                                </template>                 
-                            </v-select>                        
-                        </td>
-                        <td>
-                            <select v-model="create.type" class="form-control">
-                                <option value="Wordpress">Wordpress</option>
-                                <option value="FTP">FTP</option>
-                                <option value="SQL">SQL</option>
-                                <option value="OVH">OVH</option>
-                                <option value="Email">Email</option>
-                                <option value="Autres">Autres</option>
-                            </select>
-                        </td>
-                        <td><input type="text" v-model="create.name" class="form-control"></td>
-                        <td><input type="text" v-model="create.url" class="form-control" placeholder="https://"></td>
-                        <td></td>
-                        <td><input type="text" v-model="create.user" class="form-control"></td>
-                        <td><input type="text" v-model="create.password" class="form-control"></td>
-                        <td><button class="btn btn-success" @click="storePassword"><i class="fas fa-plus"></i></button></td>
-                    </tr>
-                    <tr v-for="(row, index) in rows">
-                        <td>{{ row.customer.name }}</td>
-                        <td>{{ row.type }}</td>
-                        <td><input class="form-control" type="text" readonly @dblclick="toggleReadonly" @keyup.enter="updatePassword($event, row)" @blur="updatePassword($event, row)" v-model="row.name"/></td>
-                        <td><input class="form-control" type="text" readonly @dblclick="toggleReadonly" @keyup.enter="updatePassword($event, row)" @blur="updatePassword($event, row)" v-model="row.url"/></td>
-                        <td><a :href="row.url" class="btn btn-sm btn-secondary" target="_blank"><i class="fas fa-external-link-alt"></i></a></td>
-                        <td><input class="form-control" type="text" readonly @dblclick="toggleReadonly" @keyup.enter="updatePassword($event, row)" @blur="updatePassword($event, row)" v-model="row.user"/></td>
-                        <td><input class="form-control" type="text" readonly @dblclick="toggleReadonly" @keyup.enter="updatePassword($event, row)" @blur="updatePassword($event, row)" v-model="row.password"/></td>
-                        <td><button class="btn btn-sm btn-danger" @click="deletePassword(row, index)"><i class="far fa-trash-alt"></i></button></td>
-                    </tr>
-                </tbody>
-
-            </table>
-
-        </div>
+        </table>
 
         <nav v-if="pagination.total > pagination.perPage">
           <ul class="pagination">
