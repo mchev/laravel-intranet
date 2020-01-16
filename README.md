@@ -2,16 +2,20 @@
 
 ## About Laravel Intranet
 
-Laravel Intranet is a web application for small companies how wants to manage customers, projects, tasks and hours.
+Laravel Intranet is a web application for small companies how wants to manage customers, projects, tasks (trello like) and hours.
 
-## Installing Laravel Intranet
+## Installation instructions
 
 Clone the repository to your host.
 
 
 Then got to the folder with the project and :
 
-edit the .env file with your database informations
+```
+cp .env.example .env
+```
+Edit your database informations in .env file
+
 
 ```
 php artisan key:generate
