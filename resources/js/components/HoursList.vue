@@ -22,7 +22,7 @@
 
         <div id="print" class="table-responsive">
 
-            <table class="table bg-white table-striped">
+            <table class="table bg-white table-bordered table-striped">
                 
                 <thead>
                     <tr>
@@ -40,15 +40,13 @@
                         <td>{{ row.user.name }}</td>
                         <td v-if="!project">{{ row.project.customer.name }} - {{ row.project.name }}</td>
                         <td>{{ row.date | moment('DD/MM/Y') }}</td>
+                        <td>{{ row.time }}</td>
+                        <td>{{ row.comment }}</td>
                         <td>
-                            <input v-if="$userId === row.user_id && !project" class="form-control" type="time" readonly @dblclick="toggleReadonly" @keyup.enter="updateHour($event, row)" @blur="updateHour($event, row)" v-model="row.time"/>
-                            <span v-else>{{ row.time }}</span>
+                            <button class="btn btn-default text-danger" @click="editHour(row)">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
                         </td>
-                        <td>
-                            <input v-if="$userId === row.user_id && !project" class="form-control" type="text" readonly @dblclick="toggleReadonly" @keyup.enter="updateHour($event, row)" @blur="updateHour($event, row)" v-model="row.comment"/>
-                            <span v-else>{{ row.comment }}</span>
-                        </td>
-                        <th><button class="btn btn-default text-danger" @click="deleteHour(row)"><i class="far fa-trash-alt"></i></button></th>
                     </tr>
                 </tbody>
 
@@ -171,13 +169,6 @@
                 axios.delete('/hours/' + hour.id).then(response => {
                     this.fetch();
                 })
-            },
-
-            toggleReadonly(event){
-                event.preventDefault()
-                if(event.target.getAttribute('readonly') == 'readonly'){
-                    event.target.removeAttribute('readonly')
-                }
             },
 
             print() {
