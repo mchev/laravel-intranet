@@ -44,7 +44,7 @@
                                 <th>Budget</th>
                                 <th>Heures</th>
                                 <th>Date de création</th>
-                                <th>Dernière modification</th>
+                                <th>Modifié le</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -52,13 +52,13 @@
                         <tbody>
                             <tr class="pl-2" v-for="project in customer.projects">
                                 <td>{{ project.ref }}</td>
-                                <td><a :href="'/projects/' + project.id + '/edit'">{{ project.name }}</a></td>
-                                <td>{{ project.type.label }}</td>
-                                <td>{{ project.state.label }}</td>
-                                <td>{{ project.budget }} <span v-if="project.budget">€</span></td>
+                                <td width="20%"><a :href="'/projects/' + project.id + '/edit'">{{ project.name }}</a></td>
+                                <td width="20%">{{ project.type.label }}</td>
+                                <td width="20%">{{ project.state.label }}</td>
+                                <td width="10%">{{ project.budget }} <span v-if="project.budget">€</span></td>
                                 <td>{{ project.total_seconds | seconds }}</td>
-                                <td>{{ project.created_at | moment('DD/MM/Y HH:mm') }}</td>
-                                <td>{{ project.updated_at | moment('DD/MM/Y HH:mm') }}</td>
+                                <td width="10%">{{ project.created_at | moment('DD/MM/Y HH:mm') }}</td>
+                                <td width="10%">{{ project.updated_at | moment('DD/MM/Y HH:mm') }}</td>
                                 <td><a :href="'/projects/' + project.id + '/edit'" title="Modifier"><i class="far fa-edit"></i></a></td>
                             </tr>
                         </tbody>
