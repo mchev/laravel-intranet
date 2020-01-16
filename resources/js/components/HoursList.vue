@@ -1,6 +1,6 @@
 <template>
 
-	<div>
+	<div id="print">
 
         <div class="row mb-3">
 
@@ -22,7 +22,7 @@
 
         <div class="row mb-3">
 
-            <div v-for="group in groups" class="col">
+            <div v-for="group in groups" class="col-md-2">
 
                 <div class="card">
                     <div class="card-header">
@@ -37,7 +37,7 @@
 
         </div>
 
-        <div id="print" class="table-responsive">
+        <div class="table-responsive">
 
             <table class="table bg-white table-bordered table-striped">
                 

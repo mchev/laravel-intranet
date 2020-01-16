@@ -56,7 +56,7 @@
                                 <td>{{ project.type.label }}</td>
                                 <td>{{ project.state.label }}</td>
                                 <td>{{ project.budget }} <span v-if="project.budget">€</span></td>
-                                <td>{{ convertSeconds(project.total_seconds) }}</td>
+                                <td>{{ project.total_seconds | seconds }}</td>
                                 <td>{{ project.created_at | moment('DD/MM/Y HH:mm') }}</td>
                                 <td>{{ project.updated_at | moment('DD/MM/Y HH:mm') }}</td>
                                 <td><a :href="'/projects/' + project.id + '/edit'" title="Modifier"><i class="far fa-edit"></i></a></td>
@@ -166,8 +166,10 @@
             
         },
 
-        computed: {
-
+        filters: {
+            seconds: function (time) {
+                return (Math.floor(time / 3600)) + "h" + ("0" + Math.floor(time / 60) % 60).slice(-2);
+            },
         },
 
     }
