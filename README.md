@@ -8,8 +8,7 @@ Laravel Intranet is a web application for small companies how wants to manage cu
 
 Clone the repository to your host.
 
-
-Then got to the folder with the project and :
+In the directory :
 
 ```
 cp .env.example .env
@@ -34,5 +33,5 @@ npm install
 ```
 
 ```
-npm run watch
+npm run watch / npm run dev / npm run prod
 ```
