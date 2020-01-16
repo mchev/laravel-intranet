@@ -30,16 +30,6 @@ class TagController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -47,29 +37,14 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'label' => 'required|unique:tags|max:255',
+            'color' => 'required',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tag $tag)
-    {
-        //
-    }
+        $tag = Tag::create($request->all());
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tag $tag)
-    {
-        //
+        return response()->json($tag);
     }
 
     /**
@@ -81,7 +56,17 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+
+        $request->validate([
+            'label' => 'required|unique:tags|max:255',
+            'color' => 'required',
+        ]);
+
+        $tag->label = $request->label;
+        $tag->color = $request->color;
+        $tag->update();
+
+        return response()->json($tag);
     }
 
     /**
@@ -92,6 +77,6 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
     }
 }

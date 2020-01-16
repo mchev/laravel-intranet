@@ -22,12 +22,20 @@
                     </div>
                 </div>
                 <button class="btn btn-secondary" @click="newTag = false">Annuler</button>
-                <button class="btn btn-success" @click="storeTag">Ajouter</button>
+                <button class="btn btn-success" @click="storeTag(tag)">Valider</button>
+                <button v-if="tag.id" class="btn btn-danger" @click="deleteTag(tag)">Supprimer</button>
             </template>
 
             <template v-else>
-                <button v-for="tag in tags" :key="tag.id" class="btn btn-block" :class="'card-label-' + tag.color" @click="attachTag(tag.id)">{{ tag.label }}</button>
-                <button class="btn btn-block btn-default" @click="newTag = true"><i class="fas fa-plus"></i> Créer une nouvelle étiquette</button>
+                <div class="row d-flex align-items-center mb-1" v-for="tag in tags" :key="tag.id">
+                    <div class="col-10 pr-0">
+                        <button class="btn btn-block" :class="'card-label-' + tag.color" @click="attachTag(tag.id)">{{ tag.label }}</button>
+                    </div>
+                    <div class="col-2 p-0 text-center">
+                        <button class="btn btn-default" @click="editTag(tag)"><i class="fas fa-pen"></i></button>
+                    </div>
+                </div>
+                <button class="btn btn-block btn-secondary mt-2" @click="createTag"><i class="fas fa-plus"></i> Créer une nouvelle étiquette</button>
             </template>
 
     	</div>
@@ -57,14 +65,52 @@
 
         methods : {
 
-            createTag(board) {
+            fetch() {
+                axios.get('tags').then(response => {
+                    this.tags = response.data;
+                });
+            },
 
+            createTag(board) {
+                this.tag = {
+                    label: '',
+                    color: '',
+                };
+                this.newTag = true;
+            },
+
+            editTag(tag) {
+
+                this.newTag = true;
+                this.tag = {
+                    id: tag.id,
+                    label: tag.label,
+                    color: tag.color
+                }
 
             },
 
-            storeTag() {
+            storeTag(tag) {
 
+                if ('id' in this.tag) {
+                    axios.patch('/tags/' + this.tag.id, this.tag).then(response => {
+                        this.fetch();
+                        this.newTag = false;
+                    });
+                } else {
+                    axios.post('/tags', this.tag).then(response => {
+                        this.fetch();
+                        this.newTag = false;
+                    });
+                }
 
+            },
+
+            deleteTag(tag) {
+                axios.delete('/tags/' + this.tag.id).then(response => {
+                    this.fetch();
+                    this.newTag = false;
+                });
             },
 
             attachTag(tag_id) {
@@ -79,12 +125,7 @@
 
         mounted() {
 
-            console.log(this.task.id);
-
-            axios.get('tags').then(response => {
-                this.tags = response.data;
-            });
-
+            this.fetch()
         },
 
         computed: {
