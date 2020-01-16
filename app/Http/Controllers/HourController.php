@@ -37,16 +37,19 @@ class HourController extends Controller
             {
                 $hours = Hour::where('project_id', $request->project)
                     ->whereBetween('date', [$start, $end])
+                    ->whereHas('user', function ($query) use ($request) {
+                        $query->where('name', 'like', '%' . $request->q . '%');
+                    })
                     ->orderBy('date', 'DESC')
                     ->with('user')
-                    ->paginate($request->paginate);
+                    ->get();
 
             } 
             else if ($request->q)
             {
                 $hours = Hour::where('user_id', auth()->user()->id)
                     ->whereBetween('date', [$start, $end])
-                    ->orWhereHas('project', function ($query) use ($request) {
+                    ->whereHas('project', function ($query) use ($request) {
                         $query->where('name', 'like', '%' . $request->q . '%')
                             ->orWhereHas('customer', function ($query) use ($request) {
                                 $query->where('name', 'like', '%' . $request->q . '%');
@@ -59,7 +62,7 @@ class HourController extends Controller
                     ->orderBy('updated_at', 'DESC')
                     ->with('project')
                     ->with('user')
-                    ->paginate($request->paginate);
+                    ->get();
             }
             else
             {
@@ -68,7 +71,7 @@ class HourController extends Controller
                     ->orderBy('updated_at', 'DESC')
                     ->with('project')
                     ->with('user')
-                    ->paginate($request->paginate);
+                    ->get();
             }
 
             return response()->json($hours);

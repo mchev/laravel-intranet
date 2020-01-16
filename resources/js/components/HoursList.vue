@@ -5,7 +5,7 @@
         <div class="row mb-3">
 
             <div class="col-md-4">
-                <input type="text" class="form-control" v-model="query" @keyup="fetch" placeholder="Rechercher">
+                <input type="text" class="form-control" v-model="query" @keyup="fetch" placeholder="Rechercher (Nom, Projet, Client)">
             </div>
 
             <div class="col-md-4">
@@ -14,8 +14,25 @@
 
             <div class="col-md-4 text-right">
                 <button class="btn btn-info" @click="print" title="Imprimer"><i class="fas fa-print"></i></button>
-                <div v-if="project" class="btn btn-info disabled"><i class="far fa-clock"></i> {{ total | seconds }}</div>
+                <div class="btn btn-info"><i class="far fa-clock"></i> {{ total | seconds }}</div>
                 <a href="#" data-toggle="modal" data-target="#createHoursModal" class="btn btn-success" title="Ajouter un client"><i class="fas fa-plus"></i> <span v-if="!project">Ajouter des heures</span></a>
+            </div>
+
+        </div>
+
+        <div class="row mb-3">
+
+            <div v-for="group in groups" class="col">
+
+                <div class="card">
+                    <div class="card-header">
+                        {{ group[0].user.name }}
+                    </div>
+                    <div class="card-body">
+                        {{ group | totalseconds | seconds }}
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -54,20 +71,6 @@
 
         </div>
 
-        <nav v-if="pagination.total > pagination.perPage">
-          <ul class="pagination">
-            <li class="page-item" :disabled="pagination.prevPage ? false : true"><a class="page-link" @click="gotoPage(pagination.prevPageId)" href="#" title="Précédent">
-                <i class="fas fa-chevron-left"></i></a>
-            </li>
-            <li v-for="i in Math.ceil(pagination.total / pagination.perPage)" :key="i" class="page-item" :class="{active: i == pagination.currentPage}">
-                <a class="page-link" @click="gotoPage(i)" href="#">{{ i }}</a>
-            </li>
-            <li class="page-item" :disabled="pagination.nextPage ? false : true">
-                <a class="page-link" @click="gotoPage(pagination.nextPageId)" href="#" title="Suivant"><i class="fas fa-chevron-right"></i></a>
-            </li>
-          </ul>
-        </nav>
-
 
         <div class="modal fade" id="createHoursModal" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -93,19 +96,6 @@
                 users: [],
                 project_id: (this.project) ? this.project.id : null,
                 rows: [],
-                pagination: {
-                    perPage: 30,
-                    currentPage: 1,
-                    total: 0,
-                    nextPage: '',
-                    prevPage: '',
-                    nextPageId: 2,
-                    prevPageId: 1,
-                    firstPage: '',
-                    lastPage: '',
-                    from: '',
-                    to: ''
-                },
                 query: '',
                 order: 'date',
                 range: {
@@ -129,31 +119,13 @@
         methods : {
 
             fetch() {
-                axios.get('/hours?page=' + this.pagination.currentPage + '&paginate=' + this.pagination.perPage + '&project=' + this.project_id + '&q=' + this.query + '&order=' + this.order + '&start=' + this.range.start + '&end=' + this.range.end).then(response => {
-                    this.rows = response.data.data;
-                    this.pagination = {
-                        perPage: this.pagination.perPage,
-                        currentPage: response.data.current_page,
-                        total: response.data.total,
-                        nextPage: response.data.next_page_url,
-                        prevPage: response.data.prev_page_url,
-                        nextPageId: parseInt(response.data.current_page) + 1,
-                        prevPageId: parseInt(response.data.current_page) - 1,
-                        firstPage: response.data.first_page_url,
-                        lastPage: response.data.last_page_url,
-                        from: response.data.from,
-                        to: response.data.to,
-                    };
+                axios.get('/hours?project=' + this.project_id + '&q=' + this.query + '&order=' + this.order + '&start=' + this.range.start + '&end=' + this.range.end).then(response => {
+                    this.rows = response.data;
                 });
             },
 
             changeOrder(field) {
                 this.order = field;
-                this.fetch();
-            },
-
-            gotoPage(id) {
-                this.pagination.currentPage = id;
                 this.fetch();
             },
 
@@ -198,6 +170,17 @@
                 WinPrint.focus();
                 WinPrint.print();
                 WinPrint.close();
+            },
+
+            groupBy(array, key){
+              const result = {}
+              array.forEach(item => {
+                if (!result[item[key]]){
+                  result[item[key]] = []
+                }
+                result[item[key]].push(item)
+              })
+              return result
             }
 
         },
@@ -207,19 +190,29 @@
         },
 
         computed: {
+
             total: function() {
-                
                 return this.rows.reduce(function(total, item) {
                     var time = moment.duration(item.time).asSeconds();
                     return total + time; 
                 },0);
+            },
+
+            groups: function() {
+                return this.groupBy(this.rows, 'user_id')
             }
         },
 
         filters: {
             seconds: function (time) {
                 return (Math.floor(time / 3600)) + "h" + ("0" + Math.floor(time / 60) % 60).slice(-2);
-            }
+            },
+            totalseconds: function(rows) {
+                return rows.reduce(function(total, item) {
+                    var time = moment.duration(item.time).asSeconds();
+                    return total + time; 
+                },0);
+            },
         }
 
     }
