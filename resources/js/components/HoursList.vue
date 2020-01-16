@@ -24,7 +24,7 @@
 
         <div class="row mb-3">
 
-            <div v-for="group in groups" class="col-3">
+            <div v-for="group in groups" class="col">
 
                 <div class="card">
                     <div class="card-header">
