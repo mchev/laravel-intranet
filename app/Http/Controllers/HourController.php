@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Hour;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HourController extends Controller
@@ -29,9 +30,13 @@ class HourController extends Controller
     {
         if($request->ajax()){
 
+            $start = ($request->start == 'undefined') ? null : Carbon::parse($request->start)->startOfDay();
+            $end = ($request->end == 'undefined') ? null : Carbon::parse($request->end)->endOfDay();
+
             if ($request->project !== 'null')
             {
                 $hours = Hour::where('project_id', $request->project)
+                    ->whereBetween('date', [$start, $end])
                     ->orderBy('date', 'DESC')
                     ->with('user')
                     ->paginate($request->paginate);
@@ -40,7 +45,7 @@ class HourController extends Controller
             else if ($request->q)
             {
                 $hours = Hour::where('user_id', auth()->user()->id)
-                    ->where('date', 'like', '%' . $request->q . '%')
+                    ->whereBetween('date', [$start, $end])
                     ->orWhereHas('project', function ($query) use ($request) {
                         $query->where('name', 'like', '%' . $request->q . '%')
                             ->orWhereHas('customer', function ($query) use ($request) {
@@ -58,7 +63,8 @@ class HourController extends Controller
             }
             else
             {
-                $hours = Hour::orderBy('date', 'DESC')
+                $hours = Hour::whereBetween('date', [$start, $end])
+                    ->orderBy('date', 'DESC')
                     ->orderBy('updated_at', 'DESC')
                     ->with('project')
                     ->with('user')

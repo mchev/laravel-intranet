@@ -104,7 +104,7 @@
 
         filters: {
             seconds: function (time) {
-                return (Math.floor(time / 3600)) + ":" + ("0" + Math.floor(time / 60) % 60).slice(-2) + ":" + ("0" + time % 60).slice(-2)
+                return (Math.floor(time / 3600)) + "h " + ("0" + Math.floor(time / 60) % 60).slice(-2) + "m";
             }
         }
 
