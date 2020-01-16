@@ -1,28 +1,30 @@
 <template>
 
-	<div id="print">
+	<div>
 
         <div class="row mb-3">
 
-            <div class="col-md-4">
+            <div class="col">
                 <input type="text" class="form-control" v-model="query" @keyup="fetch" placeholder="Rechercher (Nom, Projet, Client)">
             </div>
 
-            <div class="col-md-4">
-                <datetime range :max-date="maxDate" format="YYYY-MM-DD" formatted="DD/MM/YYYY" :custom-shortcuts="shortcuts" v-on:validate="fetch" v-model="range" label="Sélectionner une plage de dates"></datetime>
+            <div class="col">
+                <datetime range :max-date="maxDate" format="YYYY-MM-DD" formatted="DD/MM/YYYY" :custom-shortcuts="shortcuts" v-on:validate="fetch" v-model="range" class="w-100" label="Sélectionner une plage de dates"></datetime>
             </div>
 
-            <div class="col-md-4 text-right">
-                <button class="btn btn-info" @click="print" title="Imprimer"><i class="fas fa-print"></i></button>
+            <div class="col text-right">
+                <button class="btn btn-info d-print-none" @click="print" title="Imprimer">
+                    <i class="fas fa-print"></i>
+                </button>
                 <div class="btn btn-info"><i class="far fa-clock"></i> {{ total | seconds }}</div>
-                <a href="#" data-toggle="modal" data-target="#createHoursModal" class="btn btn-success" title="Ajouter un client"><i class="fas fa-plus"></i> <span v-if="!project">Ajouter des heures</span></a>
+                <a href="#" data-toggle="modal" data-target="#createHoursModal" class="btn btn-success d-print-none" title="Ajouter un client"><i class="fas fa-plus"></i> <span v-if="!project">Ajouter des heures</span></a>
             </div>
 
         </div>
 
         <div class="row mb-3">
 
-            <div v-for="group in groups" class="col-md-2">
+            <div v-for="group in groups" class="col-3">
 
                 <div class="card">
                     <div class="card-header">
@@ -144,32 +146,7 @@
             },
 
             print() {
-                // Get HTML to print from element
-                const prtHtml = document.getElementById('print').innerHTML;
-
-                // Get all stylesheets HTML
-                let stylesHtml = '';
-                for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
-                  stylesHtml += node.outerHTML;
-                }
-
-                // Open the print window
-                const WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-
-                WinPrint.document.write(`<!DOCTYPE html>
-                <html>
-                  <head>
-                    ${stylesHtml}
-                  </head>
-                  <body>
-                    ${prtHtml}
-                  </body>
-                </html>`);
-
-                WinPrint.document.close();
-                WinPrint.focus();
-                WinPrint.print();
-                WinPrint.close();
+                window.print();
             },
 
             groupBy(array, key){

@@ -11,7 +11,7 @@
 
 		<div class="row">
 
-			<div class="col-md-4 mb-3">
+			<div class="col-md-4 mb-3 d-print-none">
 
 				<div class="card">
 
@@ -109,7 +109,7 @@
 
 			</div>
 
-			<div class="col-md-8 mb-3">
+			<div class="col-md-8 mb-3 col-print">
 
 				<!--
 				<project-files :project="{{ $project->toJson() }}" class="mb-3"></project-files>
