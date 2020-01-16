@@ -14,7 +14,7 @@
 
             <div class="col-md-4 text-right">
                 <button class="btn btn-info" @click="print" title="Imprimer"><i class="fas fa-print"></i></button>
-                <div v-if="project" class="btn btn-info disabled">Total : {{ project.total_seconds | seconds }}</div>
+                <div v-if="project" class="btn btn-info disabled"><i class="far fa-clock"></i> {{ total | seconds }}</div>
                 <a href="#" data-toggle="modal" data-target="#createHoursModal" class="btn btn-success" title="Ajouter un client"><i class="fas fa-plus"></i> <span v-if="!project">Ajouter des heures</span></a>
             </div>
 
@@ -206,9 +206,19 @@
             this.fetch()
         },
 
+        computed: {
+            total: function() {
+                
+                return this.rows.reduce(function(total, item) {
+                    var time = moment.duration(item.time).asSeconds();
+                    return total + time; 
+                },0);
+            }
+        },
+
         filters: {
             seconds: function (time) {
-                return (Math.floor(time / 3600)) + "h" + ("0" + Math.floor(time / 60) % 60).slice(-2) + "m";
+                return (Math.floor(time / 3600)) + "h" + ("0" + Math.floor(time / 60) % 60).slice(-2);
             }
         }
 

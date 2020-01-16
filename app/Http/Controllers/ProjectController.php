@@ -119,12 +119,14 @@ class ProjectController extends Controller
 
         $project->save();
 
+        /*
         $project_file = new ProjectFile;
         $project_file->project_id = $project->id;
         $project_file->title = $project->name;
         $project_file->opened_at = $project->created_at;
         $project_file->state_id = 1;
         $project_file->save();
+        */
    
         return redirect()->route('projects.edit', $project);
     }
