@@ -4,9 +4,14 @@
 
 	<div class="container-fluid">
 
+		<div class="alert alert-info">
+			<h1>{{ $project->name }} ({{ $project->ref }})</h1>
+			<p>{{ $project->customer->name }}</p>
+		</div>
+
 		<div class="row">
 
-			<div class="col-md-6 mb-3">
+			<div class="col-md-4 mb-3">
 
 				<div class="card">
 
@@ -42,47 +47,51 @@
 
 				          <div class="row">
 
-				          	<div class="col-md-3">
-								<div class="form-group">
-									<label for="customer_id">Client</label>
-									<select class="form-control" name="customer_id" required>
-										@foreach($customers as $customer)
-											<option @if($project->customer_id == $customer->id) selected @endif value="{{ $customer->id }}">{{ $customer->name }}</option>
-										@endforeach
-									</select>
-								</div>
+					          	<div class="col-md-6">
+									<div class="form-group">
+										<label for="customer_id">Client</label>
+										<select class="form-control" name="customer_id" required>
+											@foreach($customers as $customer)
+												<option @if($project->customer_id == $customer->id) selected @endif value="{{ $customer->id }}">{{ $customer->name }}</option>
+											@endforeach
+										</select>
+									</div>
+					          	</div>
+
+					          	<div class="col-md-6">
+									<div class="form-group">
+										<label for="type_id">Type</label>
+										<select class="form-control" name="type_id">
+											@foreach($types as $type)
+												<option @if($project->type_id == $type->id) selected @endif value="{{ $type->id }}">{{ $type->label }}</option>
+											@endforeach
+										</select>
+									</div>
+					          	</div>
+
 				          	</div>
 
-				          	<div class="col-md-3">
-								<div class="form-group">
-									<label for="type_id">Type</label>
-									<select class="form-control" name="type_id">
-										@foreach($types as $type)
-											<option @if($project->type_id == $type->id) selected @endif value="{{ $type->id }}">{{ $type->label }}</option>
-										@endforeach
-									</select>
-								</div>
-				          	</div>
+				          	<div class="row">
 
-				          	<div class="col-md-3">
-								<div class="form-group">
-									<label for="state_id">État</label>
-									<select class="form-control" name="state_id">
-										@foreach($states as $state)
-											<option @if($project->state_id == $state->id) selected @endif value="{{ $state->id }}">{{ $state->label }}</option>
-										@endforeach
-									</select>
-								</div>
-				          	</div>
+					          	<div class="col-md-6">
+									<div class="form-group">
+										<label for="state_id">État</label>
+										<select class="form-control" name="state_id">
+											@foreach($states as $state)
+												<option @if($project->state_id == $state->id) selected @endif value="{{ $state->id }}">{{ $state->label }}</option>
+											@endforeach
+										</select>
+									</div>
+					          	</div>
 
-				          	<div class="col-md-3">
-								<div class="form-group">
-									<label for="budget">Budget</label>
-									<input class="form-control" type="number" value="{{ $project->budget }}" step="any" name="budget">
-								</div>
-				          	</div>
+					          	<div class="col-md-6">
+									<div class="form-group">
+										<label for="budget">Budget</label>
+										<input class="form-control" type="number" value="{{ $project->budget }}" step="any" name="budget">
+									</div>
+					          	</div>
 
-				          </div>
+					        </div>
 
 
 				          <div class="form-group">
@@ -100,7 +109,10 @@
 
 			</div>
 
-			<div class="col-md-6 mb-3">
+			<div class="col-md-8 mb-3">
+
+
+				<project-files :project="{{ $project->toJson() }}" class="mb-3"></project-files>
 
 				<div class="card">
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\ProjectFile;
 use App\Customer;
 use Illuminate\Http\Request;
 
@@ -61,7 +62,11 @@ class ProjectController extends Controller
 
     public function list()
     {
-        $projects = Project::select('id', 'customer_id', 'name')->orderBy('updated_at')->with('customer')->get();
+        $projects = Project::with('customer')
+                            ->select('id', 'customer_id', 'name', \DB::raw('(SELECT name FROM customers WHERE projects.customer_id = customers.id ) as customer_name'))
+                            ->orderBy('customer_name')
+                            ->orderBy('name')
+                            ->get();
 
         $projects->map(function($project) {
             $project->name = $project->customer->name . ' - ' . $project->name;
@@ -113,8 +118,15 @@ class ProjectController extends Controller
         $project->user_id = auth()->user()->id;
 
         $project->save();
+
+        $project_file = new ProjectFile;
+        $project_file->project_id = $project->id;
+        $project_file->title = $project->name;
+        $project_file->opened_at = $project->created_at;
+        $project_file->state_id = 1;
+        $project_file->save();
    
-        return redirect()->route('projects.index');
+        return redirect()->route('projects.edit', $project);
     }
 
     /**

@@ -20,6 +20,9 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/customers/list', 'CustomerController@list');
 	Route::resource('customers', 'CustomerController');
 
+	Route::get('/project/{project}/files', 'ProjectFileController@index');
+	Route::patch('/project/files/{file}/validate', 'ProjectFileController@validation');
+
 	Route::get('/projects/list', 'ProjectController@list');
 	Route::get('/projects/{project}/archive', 'ProjectController@destroy')->name('projects.archive');
 	Route::resource('projects', 'ProjectController');

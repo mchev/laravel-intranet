@@ -15,7 +15,7 @@ class Project extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\user');
+        return $this->belongsTo('App\User');
     }
 
     public function customer()
@@ -56,6 +56,11 @@ class Project extends Model
             ->first();
 
         return $hours['total'];
+    }
+
+    public function files()
+    {
+        return $this->hasMany('App\ProjectFile');
     }
 
 }
