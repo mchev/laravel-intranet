@@ -67,7 +67,7 @@
                 ],
                 rows: [],
                 pagination: {
-                    perPage: 10,
+                    perPage: 20,
                     currentPage: 1,
                     total: 0,
                     nextPage: '',
