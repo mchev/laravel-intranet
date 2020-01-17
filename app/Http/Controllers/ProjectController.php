@@ -46,6 +46,7 @@ class ProjectController extends Controller
             } else {
                 $projects = Customer::orderBy('name')
                     ->orderBy($request->order)
+                    ->whereHas('projects')
                     ->with('projects')
                     ->paginate($request->paginate);
             }
