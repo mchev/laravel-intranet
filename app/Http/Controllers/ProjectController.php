@@ -107,6 +107,16 @@ class ProjectController extends Controller
             'customer_id' => 'required|integer'
         ]);
 
+        // Project reference based on YEAR and MONTH
+        $ref_prefix = date('y') . date('m');
+        $new_month = $ref_prefix . '001';
+
+        $latest_ref = Project::select('ref')
+                            ->where(\DB::raw('substr(ref, 1, 4)'), '=', $ref_prefix)
+                            ->orderBy('ref', 'DESC')
+                            ->first();
+        $ref = ( $latest_ref ) ? intval($latest_ref->ref) + 1 : $new_month;
+
         $project = new Project;
 
         $project->name = $request->name;
@@ -116,6 +126,7 @@ class ProjectController extends Controller
         $project->customer_id = $request->customer_id;
         $project->budget = $request->budget;
         $project->user_id = auth()->user()->id;
+        $project->ref = intval($ref);
 
         $project->save();
 
@@ -168,7 +179,7 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $request->validate([
-            'ref' => 'required|integer',
+            'ref' => 'required|unique:projects|integer',
             'name' => 'required|max:255',
             'type_id' => 'required|integer',
             'state_id' => 'required|integer',

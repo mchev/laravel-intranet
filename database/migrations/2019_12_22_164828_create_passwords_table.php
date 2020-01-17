@@ -18,10 +18,10 @@ class CreatePasswordsTable extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->string('type');
-            $table->string('name');
-            $table->string('url');
-            $table->string('user');
-            $table->string('password');
+            $table->string('name')->nullable();
+            $table->string('url')->nullable();
+            $table->string('user')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }
