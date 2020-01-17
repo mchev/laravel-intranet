@@ -23,6 +23,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        if (auth()->user()->is_admin == 1) {
+            return redirect('/admin');
+        }
+        
         return view('dashboard');
     }
 
