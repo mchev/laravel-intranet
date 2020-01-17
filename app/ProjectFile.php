@@ -21,6 +21,11 @@ class ProjectFile extends Model
         return $this->belongsTo('App\Project');
     }
 
+    public function state()
+    {
+        return $this->belongsTo('App\State');
+    }
+
     public function getHoursAttribute() {
 
     	$start = Carbon::parse($this->opened_at)->startOfDay();

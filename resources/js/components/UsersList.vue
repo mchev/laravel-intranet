@@ -85,6 +85,12 @@
                                 <small class="text-danger">Remplace le mot de passe actuel.</small>
                                 <input class="form-control" type="password" v-model="editingUser.newpassword" autocomplete="off">
                             </div>
+                            <div v-if="user.is_admin" class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input v-model="editingUser.is_admin" type="checkbox" class="custom-control-input" id="adminChek">
+                                    <label class="custom-control-label" for="adminChek">Administrateur</label>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -103,6 +109,8 @@
 <script>
 
     export default {
+
+        props: ['user'],
 
         data(){
             return {

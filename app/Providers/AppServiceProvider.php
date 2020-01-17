@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Auth;    // Must Must use
+use Illuminate\Support\Facades\Blade;   // Must Must use
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +29,10 @@ class AppServiceProvider extends ServiceProvider
             $settings = \App\Setting::first(); 
             $view->with(['settings'=>$settings]);
         });
+
+        Blade::if('admin', function () {
+            return auth()->check() && auth()->user()->is_admin == 1;
+        });
+
     }
 }

@@ -60,7 +60,7 @@ class Project extends Model
 
     public function files()
     {
-        return $this->hasMany('App\ProjectFile');
+        return $this->hasMany('App\ProjectFile')->with('state');
     }
 
 }

@@ -32,9 +32,12 @@ class UserController extends Controller
             $request->order = (isset($request->order)) ? $request->order : 'name';
 
             if ($request->q) {
-                $users = User::where('name', 'like', '%' . $request->q . '%')->orderBy($request->order)->paginate($request->paginate);
+                $users = User::where('name', 'like', '%' . $request->q . '%')
+                            ->orderBy($request->order)
+                            ->paginate($request->paginate);
             } else {
-                $users = User::orderBy($request->order)->paginate($request->paginate);
+                $users = User::orderBy($request->order)
+                            ->paginate($request->paginate);
             }
 
             return response()->json($users);
@@ -62,6 +65,24 @@ class UserController extends Controller
             'week' => $week,
             'month' => $month
         ]);
+    }
+
+    /**       
+    * Get the hours by week or month for all users
+    *
+    * @return Response
+    */
+    public function allhours()
+    {
+        $users = User::orderBy('name')->get();
+
+        $users->map(function($user) {
+            $user->week_hours = $user->weekHours();
+            $user->month_hours = $user->monthHours();
+            return $user;
+        });
+
+        return response()->json($users);
     }
 
 
@@ -112,6 +133,7 @@ class UserController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->is_admin = $request->is_admin;
 
         if (isset($request->newpassword) && !empty($request->newpassword)) {
             $user->password = Hash::make($request->newpassword);

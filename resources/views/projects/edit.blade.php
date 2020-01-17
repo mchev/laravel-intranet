@@ -111,9 +111,9 @@
 
 			<div class="col-md-8 mb-3 col-print">
 
-				<!--
+				
 				<project-files :project="{{ $project->toJson() }}" class="mb-3"></project-files>
-				-->
+				
 
 				<div class="card">
 

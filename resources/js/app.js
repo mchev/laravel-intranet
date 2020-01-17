@@ -42,6 +42,8 @@ Vue.prototype.$userId = parseInt(document.querySelector("meta[name='user-id']").
 const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.component('admin-users-hours', require('./components/admin/UsersHours.vue').default);
+
 /*
 Vue.component('customers-list', require('./components/CustomersList.vue').default);
 Vue.component('projects-list', require('./components/ProjectsList.vue').default);

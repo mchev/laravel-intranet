@@ -31,8 +31,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::get('/user/hours', 'UserController@hours');
 	Route::get('/user/board', 'UserController@board');
-	Route::get('/users/list', 'UserController@getUsers');
-	Route::resource('users', 'UserController');
 
 	Route::get('boards', function() {
 		return view('tasks.index');
@@ -49,14 +47,24 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::resource('/tags', 'TagController');
 
 
-	Route::resource('passwords', 'PasswordController');
+	// ADMIN
+	Route::group(['middleware' => ['admin']], function () {
 
-	Route::get('accounts', function() {
-		return view('accounts.index');
-	})->name('accounts.index');
+		Route::get('/', 'AdminController@index')->name('admin.index');
 
-	Route::post('settings/upload', 'SettingController@upload');
-	Route::resource('settings', 'SettingController');
+		Route::get('/users/hours', 'UserController@allhours');
+		Route::get('/users/list', 'UserController@getUsers');
+		Route::resource('users', 'UserController');
 
+		Route::resource('passwords', 'PasswordController');
+
+		Route::get('accounts', function() {
+			return view('accounts.index');
+		})->name('accounts.index');
+
+		Route::post('settings/upload', 'SettingController@upload');
+		Route::resource('settings', 'SettingController');
+
+	});
 
 });

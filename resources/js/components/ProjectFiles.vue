@@ -20,14 +20,13 @@
                             <th>Heures</th>
                             <th>Montant HT</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="row in rows" :key="row.id">
                             <td><a href="#" @click="editFile(row)">{{ row.title }}</a></td>
-                            <td>
-                                <v-select :options="states" v-model="row.state_id" :reduce="label => label.id" label="label"></v-select>
-                            </td>
+                            <td>{{ row.state.label }}</td>
                             <td>{{ row.opened_at | moment("calendar") }}</td>
                             <td><input type="date" class="form-control" v-model="row.closed_at"></td>
                             <td>
@@ -39,10 +38,20 @@
                             <td>{{ row.hours | seconds }}</td>
                             <td><input class="form-control" type="text" v-model="row.invoice_total_ht"></td>
                             <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">A facturer</a>
+                                        <a class="dropdown-item" href="#">Facture intermédiaire</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-info" @click="editFile(row)"><i class="far fa-eye"></i></button>
-                                    <button class="btn btn-warning">A facturer</button>
-                                    <button class="btn btn-success" @click="validateFile(row)">Valider</button>
+                                    <button class="btn btn-sm btn-info" @click="editFile(row)"><i class="far fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-success" @click="validateFile(row)" title="Valider"><i class="fas fa-check"></i></button>
                                 </div>
                             </td>
                         </tr>
