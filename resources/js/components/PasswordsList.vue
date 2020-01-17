@@ -100,7 +100,7 @@
             return {
                 rows: [],
                 pagination: {
-                    perPage: 10,
+                    perPage: 30,
                     currentPage: 1,
                     total: 0,
                     nextPage: '',

@@ -39,7 +39,8 @@ class PasswordController extends Controller
                     ->with('customer')
                     ->paginate($request->paginate);
             } else {
-                $passwords = Password::orderBy($request->order)
+                $passwords = Password::orderBy('customer_id')
+                    ->orderBy('updated_at')
                     ->with('customer')
                     ->paginate($request->paginate);
             }
