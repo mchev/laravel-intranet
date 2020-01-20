@@ -1,65 +1,31 @@
 <template>
 
-    <div class="card">
+    <div>
 
-        <div class="card-header">
-            <h5 class="card-title">Dossiers de gestion</h5>
-        </div>
-
-        <div class="card-body">
-
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Opération</th>
-                            <th>Statut</th>
-                            <th>Date d'ouverture</th>
-                            <th>Date de clôture</th>
-                            <th>Devis</th>
-                            <th>Date Facturation</th>
-                            <th>Heures</th>
-                            <th>Montant HT</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="row in rows" :key="row.id">
-                            <td><a href="#" @click="editFile(row)">{{ row.title }}</a></td>
-                            <td>{{ row.state.label }}</td>
-                            <td>{{ row.opened_at | moment("calendar") }}</td>
-                            <td><input type="date" class="form-control" v-model="row.closed_at"></td>
-                            <td>
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" v-model="row.is_quoted">
-                                </div>
-                            </td>
-                            <td><input type="date" class="form-control" v-model="row.facturation_date"></td>
-                            <td>{{ row.hours | seconds }}</td>
-                            <td><input class="form-control" type="text" v-model="row.invoice_total_ht"></td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-file-invoice-dollar"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">A facturer</a>
-                                        <a class="dropdown-item" href="#">Facture intermédiaire</a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="btn-group">
-                                    <button class="btn btn-sm btn-info" @click="editFile(row)"><i class="far fa-eye"></i></button>
-                                    <button class="btn btn-sm btn-success" @click="validateFile(row)" title="Valider"><i class="fas fa-check"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Opération</th>
+                    <th>Ouvert le</th>
+                    <th>Budget</th>
+                    <th>Heures</th>
+                    <th>Devis</th>
+                    <th>Facture</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="row in rows" :key="row.id">
+                    <td><a href="#" @click="editFile(row)">{{ row.title }}</a></td>
+                    <td>{{ row.opened_at | moment("DD/MM/YYYY") }}</td>
+                    <td><input type="number" step="any" class="form-control"></td>
+                    <td>{{ row.hours | seconds }}</td>
+                    <td><button class="btn btn-secondary"><i class="fas fa-plus"></i> Créer un devis</button></td>
+                    <td><button class="btn btn-secondary"><i class="fas fa-plus"></i> Créer une facture</button></td>
+                    <td><button class="btn btn-warning"><i class="fas fa-lock"></i> Clôturer</button></td>
+                </tr>
+            </tbody>
+        </table>
 
     </div>
 

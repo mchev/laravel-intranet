@@ -9,18 +9,29 @@
 			<p>{{ $project->customer->name }}</p>
 		</div>
 
-		<div class="row">
+		<div class="card">
 
-			<div class="col-md-4 mb-3 d-print-none">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="hours-tab" data-toggle="tab" href="#hours" role="tab" aria-controls="hours" aria-selected="true">Heures du projet</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Gestion comptable</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="project-tab" data-toggle="tab" href="#project" role="tab" aria-controls="project" aria-selected="false">Modifier le projet</a>
+				</li>
+			</ul>
 
-				<div class="card">
 
-				  <div class="card-header">
-				    Modifier un projet
-				  </div>
-
-				  <div class="card-body">
-
+			<div class="tab-content p-4" id="myTabContent">
+				<div class="tab-pane fade show active" id="hours" role="tabpanel" aria-labelledby="hours-tab">
+					<hours-list :project="{{ $project->toJson() }}"></hours-list>
+				</div>
+				<div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
+					<project-files :project="{{ $project->toJson() }}" class="mb-3"></project-files>
+				</div>
+				<div class="tab-pane fade" id="project" role="tabpanel" aria-labelledby="project-tab">
 				    @if ($errors->any())
 				      <div class="alert alert-danger">
 				        <ul>
@@ -104,29 +115,7 @@
 
 				      </form>
 
-				  </div>
 				</div>
-
-			</div>
-
-			<div class="col-md-8 mb-3 col-print">
-
-				
-				<project-files :project="{{ $project->toJson() }}" class="mb-3"></project-files>
-				
-
-				<div class="card">
-
-					<div class="card-header">
-						<h5>Heures du projet</h5>
-					</div>
-
-					<div class="card-body">
-						<hours-list :project="{{ $project->toJson() }}"></hours-list>
-					</div>
-
-				</div>
-
 			</div>
 
 		</div>
