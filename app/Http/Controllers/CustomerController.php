@@ -76,9 +76,15 @@ class CustomerController extends Controller
             'name' => 'required|unique:customers|max:255',
         ]);
 
-        Customer::create($request->all());
+        $customer = Customer::create($request->all());
 
-        return view('customers.index');
+        return response()->json([
+            'status' => (bool) $customer,
+            'data'   => $customer,
+            'message' => $customer ? 'Client ajouté!' : 'Erreur lors de la création du client.'
+        ]);
+
+        //return view('customers.index');
     }
 
     /**

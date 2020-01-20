@@ -11,7 +11,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>Utilisateur</th>
                         <th>Semaine</th>
                         <th>Mois</th>
                     </tr>
