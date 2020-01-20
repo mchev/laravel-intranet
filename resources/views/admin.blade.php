@@ -80,7 +80,17 @@
 
         </div>
 
-        <admin-users-hours></admin-users-hours>
+        <div class="row">
+
+            <div class="col-md-6">
+
+            </div>
+
+            <div class="col-md-6">
+                <admin-users-hours></admin-users-hours>
+            </div>
+
+        </div>
 
     </div>
 

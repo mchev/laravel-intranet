@@ -1,38 +1,29 @@
 <template>
 
-    <div class="row">
+    <div class="card">
 
-        <div class="col" v-for="user in users" :key="user.id">
+        <div class="card-header">
+            <h5 class="card-title">Heures en cours</h5>
+        </div>
 
-            <div class="card mb-3">
+        <div class="card-body">
 
-                <div class="card-header">
-                    <h5 class="card-title">{{ user.name }}</h5>
-                </div>
-
-                <div class="card-body">
-
-                    <table class="table table-bordered">
-
-                        <thead>
-                            <tr>
-                                <th>Cette semaine</th>
-                                <th>Mois en cours</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>{{ user.week_hours | seconds }}</td>
-                                <td>{{ user.month_hours | seconds }}</td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Semaine</th>
+                        <th>Mois</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="user in users" :key="user.id">
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.week_hours | seconds }}</td>
+                        <td>{{ user.month_hours | seconds }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
         </div>
 
