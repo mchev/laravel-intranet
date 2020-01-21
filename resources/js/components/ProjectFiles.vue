@@ -21,7 +21,7 @@
                     <td><input type="number" step="any" class="form-control"></td>
                     <td>{{ row.hours | seconds }}</td>
                     <td><button class="btn btn-secondary"><i class="fas fa-plus"></i> Créer un devis</button></td>
-                    <td><button class="btn btn-secondary"><i class="fas fa-plus"></i> Créer une facture</button></td>
+                    <td><a href="/invoices/create" class="btn btn-secondary"><i class="fas fa-plus"></i> Créer une facture</a></td>
                     <td><button class="btn btn-warning"><i class="fas fa-lock"></i> Clôturer</button></td>
                 </tr>
             </tbody>
