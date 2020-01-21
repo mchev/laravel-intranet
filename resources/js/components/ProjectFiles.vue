@@ -20,8 +20,8 @@
                     <td>{{ row.opened_at | moment("DD/MM/YYYY") }}</td>
                     <td><input type="number" step="any" class="form-control"></td>
                     <td>{{ row.hours | seconds }}</td>
-                    <td><a :href="'/estimates/create?project=' + row.project_id" class="btn btn-secondary"><i class="fas fa-plus"></i> Créer un devis</a></td>
-                    <td><a :href="'/invoices/create?project=' + row.project_id" class="btn btn-secondary"><i class="fas fa-plus"></i> Créer une facture</a></td>
+                    <td><a :href="'/estimates/create?project=' + row.project_id" class="btn btn-secondary" title="Créer un devis"><i class="fas fa-plus"></i> Devis</a></td>
+                    <td><a :href="'/invoices/create?project=' + row.project_id" class="btn btn-secondary" title="Créer une facture"><i class="fas fa-plus"></i> Facture</a></td>
                     <td><button class="btn btn-warning"><i class="fas fa-lock"></i> Clôturer</button></td>
                 </tr>
             </tbody>

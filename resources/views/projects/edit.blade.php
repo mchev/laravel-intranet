@@ -16,7 +16,7 @@
 					<a class="nav-link active" id="hours-tab" data-toggle="tab" href="#hours" role="tab" aria-controls="hours" aria-selected="true">Heures du projet</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Gestion comptable</a>
+					<a class="nav-link" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Facturation</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" id="project-tab" data-toggle="tab" href="#project" role="tab" aria-controls="project" aria-selected="false">Modifier le projet</a>
