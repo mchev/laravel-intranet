@@ -58,7 +58,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::resource('passwords', 'PasswordController');
 
-		Route::resource('invoices', 'InvoiceController');
+		Route::resource('invoices', 'Invoices\InvoiceController');
+		Route::resource('estimates', 'Invoices\EstimateController');
 
 		Route::get('accounts', function() {
 			return view('accounts.index');

@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Invoices;
 
+use App\Project;
 use App\Doc;
 use App\DocItem;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
@@ -21,11 +23,16 @@ class InvoiceController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('accounts.invoices.create');
+
+        $project = Project::with('customer')->find($request->project);
+        $type = 'invoice';
+
+        return view('accounts.invoices.create', compact('type', 'project'));
     }
 
     /**

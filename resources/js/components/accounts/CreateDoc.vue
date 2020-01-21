@@ -16,7 +16,7 @@
 			<div class="row mb-3 d-flex align-items-center">
 
 				<div class="col-md-6 p-4">
-					<button v-if="type = invoice" class="btn btn-block btn-secondary mb-4">FACTURE</button>
+					<button v-if="type === 'invoice'" class="btn btn-block btn-secondary mb-4">FACTURE</button>
 					<button v-else class="btn btn-block btn-secondary mb-4">DEVIS</button>
 
 	            	<div class="row" v-if="invoice.customer">
@@ -66,12 +66,12 @@
 							</div>
 						</div>
 						<div class="col-md-6">
-							<label class="mr-2">Numéro client : </label>
+							<label class="mr-2">Référence projet : </label>
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
 								</div>
-								<input v-if="invoice.customer" class="form-control" type="text" v-model="invoice.customer.id">
+								<input v-if="invoice.customer" class="form-control" type="text" v-model="invoice.project_ref">
 								<input v-else class="form-control" type="text" readonly>
 							</div>
 						</div>
@@ -104,7 +104,7 @@
 					      <th>Qté</th>
 					      <th>Prix</th>
 					      <th>TVA</th>
-					      <th>Remise (%)</th>
+					      <th>Remise</th>
 					      <th>Total H.T</th>
 					      <th></th>
 					    </tr>
@@ -206,7 +206,14 @@
 	
     export default {
 
-    	props: ['type'],
+		props: {
+		  type: {
+		    default: "estimate",
+		  },
+		  project: {
+		    default: false,
+		  },
+		},
 
         data(){
             return {
@@ -215,7 +222,9 @@
             	tva: 20,
             	currency: '€',
             	invoice: {
-            		customer: null,
+            		customer: this.project.customer,
+            		project_id: this.project.id,
+            		project_ref: this.project.ref,
             		ref: "",
             		comments: "",
 	            	created_at: moment().format('YYYY-MM-DD'),
@@ -230,6 +239,7 @@
         mounted() {
 
             this.getCustomers();
+
 
         },
 
