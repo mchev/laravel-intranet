@@ -62,7 +62,7 @@
                         <td>{{ row.time }}</td>
                         <td>{{ row.comment }}</td>
                         <td>
-                            <button class="btn btn-default text-danger" @click="editHour(row)">
+                            <button class="btn btn-default text-danger" @click="deleteHour(row)">
                                 <i class="far fa-trash-alt"></i>
                             </button>
                         </td>
