@@ -13,7 +13,10 @@
 
 Auth::routes(['register' => false]);
 
-Route::group(['middleware' => ['auth']], function () {
+Route::get('verify/resend', 'Auth\TwoFactorController@resend')->name('verify.resend');
+Route::resource('verify', 'Auth\TwoFactorController')->only(['index', 'store']);
+
+Route::group(['middleware' => ['auth', 'twofactor']], function () {
 
 	Route::get('/', 'DashboardController@index')->name('dashboard.index');
 

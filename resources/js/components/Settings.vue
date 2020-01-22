@@ -122,7 +122,7 @@
 
 					<div class="row mt-4">
 
-						<div class="col-xl-12">
+						<div class="col-xl-6">
 
 							<div class="form-group">
 								<label>Couleur de l'interface</label>
@@ -133,6 +133,16 @@
 								<select v-model="setting.lang" class="form-control">
 									<option value="fr">Français</option>
 								</select>
+							</div>
+
+						</div>
+
+						<div class="col-xl-6">
+
+							<div class="alert alert-warning">Vous pouvez desactiver la double authentification dans vox locaux en renseignant votre adresse IP publique</div>
+							<div class="form-group">
+								<label>Adresse IP</label>
+								<input type="text" v-model="setting.company_ip" class="form-control">
 							</div>
 
 						</div>
