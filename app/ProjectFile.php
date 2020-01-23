@@ -18,12 +18,22 @@ class ProjectFile extends Model
 
     public function project()
     {
-        return $this->belongsTo('App\Project');
+        return $this->belongsTo('App\Project')->with('customer');
     }
 
     public function state()
     {
         return $this->belongsTo('App\State');
+    }
+
+    public function estimate()
+    {
+        return $this->hasOne('App\Doc')->where('type', 'estimate');
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne('App\Doc')->where('type', 'invoice');
     }
 
     public function getHoursAttribute() {

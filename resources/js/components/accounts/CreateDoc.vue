@@ -5,7 +5,7 @@
 		<div class="row mb-3">
 
 			<div class="col-md-12 text-right">
-				<button class="btn btn-primary"><i class="fas fa-save"></i> Enregistrer</button>
+				<button class="btn btn-primary" @click="storeDoc"><i class="fas fa-save"></i> Enregistrer</button>
 			</div>
 
 		</div>
@@ -82,6 +82,19 @@
 
 			</div>
 
+			<div class="row">
+
+				<div class="col-md-12">
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Objet</span>
+						</div>
+						<input class="form-control" v-model="invoice.title" required />
+					</div>
+				</div>
+
+			</div>
+
 			<div class="table-responsive">
 
 	    		<table class="table table-striped">
@@ -113,7 +126,7 @@
 	    			<tbody>
 					    <tr v-for="(item, index) in items">
 					    	<td>
-					    		<input class="form-control mb-2" v-model="item.ref" placeholder="Référence du produit" />
+					    		<input class="form-control mb-2" v-model="item.ref" placeholder="Référence du produit" required />
 					    		<textarea class="form-control" v-model="item.description" placeholder="Description du produit (facultatif)"></textarea>
 					    	</td>
 					    	<td>
@@ -210,9 +223,12 @@
 		  type: {
 		    default: "estimate",
 		  },
-		  project: {
+		  file: {
 		    default: false,
 		  },
+		  doc: {
+		  	defaut: null,
+		  }
 		},
 
         data(){
@@ -222,12 +238,16 @@
             	tva: 20,
             	currency: '€',
             	invoice: {
-            		customer: this.project.customer,
-            		project_id: this.project.id,
-            		project_ref: this.project.ref,
-            		ref: "",
+            		title: this.file.title,
+            		customer: this.file.project.customer,
+            		project_id: this.file.project.id,
+            		project_file_id: this.file.id,
+            		status_id: 1,
+            		project_ref: this.file.project.ref,
+            		type: this.type,
+            		ref: "F-001-2020",
             		comments: "",
-	            	created_at: moment().format('YYYY-MM-DD'),
+	            	created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
 	            	expire_at: moment().add(1, 'M').format('YYYY-MM-DD'),
             	},
 			    items: [
@@ -267,7 +287,7 @@
 			},
 
 			addItem() {
-			  this.items.push({ ref: "", description: "", quantity: 1, price: 0, tva: 20, discount: 0 });
+			  this.items.push({ ref: "", unit: "U", description: "", quantity: 1, price: 0, tva: 20, discount: 0 });
 			},
 
 			removeItem(index) {
@@ -276,6 +296,18 @@
 
 			updateExpiration() {
 				this.invoice.expire_at = moment(this.invoice.created_at).add(1, 'M').format('YYYY-MM-DD');
+			},
+
+			storeDoc() {
+				if (this.type == 'estimate') {
+					axios.post('/estimates', {invoice: this.invoice, items: this.items}).then(response => {
+	                    console.log(response.data);
+	                });
+				} else {
+					axios.post('/invoices', {invoice: this.invoice, items: this.items}).then(response => {
+	                    console.log(response.data);
+	                });
+				}
 			}
 		},
 
