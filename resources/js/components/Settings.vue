@@ -26,6 +26,9 @@
 				<li class="nav-item">
 					<a class="nav-link" id="interface-tab" data-toggle="tab" href="#interface" role="tab" aria-controls="interface" aria-selected="false">Paramètres de l'interface</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="finance-tab" data-toggle="tab" href="#finance" role="tab" aria-controls="finance" aria-selected="false">Gestion financière</a>
+				</li>
 			</ul>
 		
 
@@ -34,7 +37,7 @@
 
 					<div class="row mt-4">
 
-						<div class="col-xl-4">
+						<div class="col-xl-6">
 
 							<div class="form-group">
 								<label>Nom de la société</label>
@@ -57,7 +60,7 @@
 
 						</div>
 
-						<div class="col-xl-4">
+						<div class="col-xl-6">
 
 							<div class="form-group">
 								<label>Email de la société</label>
@@ -66,23 +69,6 @@
 							<div class="form-group">
 								<label>Téléphone de la société</label>
 								<input type="text" v-model="setting.company_phone" class="form-control">
-							</div>
-
-						</div>
-
-						<div class="col-xl-4">
-
-							<div class="form-group">
-								<label>Numéro de TVA intracommunautaire</label>
-								<input type="text" v-model="setting.company_tva" class="form-control">
-							</div>
-							<div class="form-group">
-								<label>Numéro de SIRET</label>
-								<input type="text" v-model="setting.company_siret" class="form-control">
-							</div>
-							<div class="form-group">
-								<label>IBAN</label>
-								<input type="text" v-model="setting.company_iban" class="form-control">
 							</div>
 
 						</div>
@@ -143,6 +129,53 @@
 							<div class="form-group">
 								<label>Adresse IP</label>
 								<input type="text" v-model="setting.company_ip" class="form-control">
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+				<div class="tab-pane fade" id="finance" role="tabpanel" aria-labelledby="finance-tab">
+
+					<div class="row mt-4">
+
+						<div class="col">
+
+							<div class="form-group">
+								<label>Date de clôture d'exercice comptable</label>
+								<div class="input-group">
+									<input type="number" min="01" max="12" step="1" v-model="setting.business_year_day" class="form-control">
+									<select v-model="setting.business_year_month" class="form-control">
+										<option value="01">Janvier</option>
+										<option value="02">Février</option>
+										<option value="03">Mars</option>
+										<option value="04">Avril</option>
+										<option value="05">Mai</option>
+										<option value="06">Juin</option>
+										<option value="07">Juillet</option>
+										<option value="08">Août</option>
+										<option value="09">Septembre</option>
+										<option value="10">Octobre</option>
+										<option value="11">Novembre</option>
+										<option value="12">Décembre</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label>Numéro de TVA intracommunautaire</label>
+								<input type="text" v-model="setting.company_tva" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Numéro de SIRET</label>
+								<input type="text" v-model="setting.company_siret" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>IBAN</label>
+								<input type="text" v-model="setting.company_iban" class="form-control">
 							</div>
 
 						</div>

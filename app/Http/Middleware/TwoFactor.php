@@ -11,7 +11,7 @@ class TwoFactor
     {
         $user = auth()->user();
 
-        $settings = \App\Setting::first();
+        $settings = app('settings');
 
         if (empty($settings->company_ip) || ($request->ip() != $settings->company_ip) ) {
 

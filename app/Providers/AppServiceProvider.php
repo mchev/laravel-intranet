@@ -25,14 +25,27 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /*
         View()->composer('*', function ($view){
             $settings = \App\Setting::first(); 
             $view->with(['settings'=>$settings]);
         });
+        */
+
+
+        \App::singleton('settings', function(){
+            $settings = \App\Setting::first();
+            return $settings;
+        });
+
+        view()->share('settings', app('settings'));
+
+
 
         Blade::if('admin', function () {
             return auth()->check() && auth()->user()->is_admin == 1;
         });
+
 
     }
 }
