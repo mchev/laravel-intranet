@@ -83,11 +83,18 @@
         <div class="row">
 
             <div class="col-md-6">
-
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Factures</h5>
+                    </div>
+                    <div class="card-body">
+                        <list-doc :type="'invoice'"></list-doc>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-6">
-                <admin-users-hours></admin-users-hours>
+                <users-hours></users-hours>
             </div>
 
         </div>

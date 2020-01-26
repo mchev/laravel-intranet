@@ -27,7 +27,6 @@
     },
     "dependencies": {
         "jspdf": "^1.5.3",
-        "sweetalert2": "^9.5.3",
         "vue-ctk-date-time-picker": "^2.4.0",
         "vue-moment": "^4.1.0",
         "vue-select": "^3.4.0",

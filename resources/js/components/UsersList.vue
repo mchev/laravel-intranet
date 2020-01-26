@@ -9,7 +9,7 @@
             </div>
 
             <div class="col-md-6 text-right">
-                <button class="btn btn-secondary" disabled>{{ pagination.total }} utilisateurs</button>
+                <button class="btn btn-info" disabled>{{ pagination.total }} utilisateurs</button>
                 <button class="btn btn-success" title="Ajouter un client" data-toggle="modal" data-target="#editUserModal" @click="createUser">
                     <i class="fas fa-plus"></i> Ajouter un utilisateur
                 </button>

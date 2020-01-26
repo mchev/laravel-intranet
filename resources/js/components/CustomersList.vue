@@ -9,7 +9,7 @@
             </div>
 
             <div class="col-md-6 text-right">
-                <button class="btn btn-secondary" disabled>{{ pagination.total }} clients</button>
+                <button class="btn btn-info" disabled>{{ pagination.total }} clients</button>
                 <a href="/customers/create"  class="btn btn-success" title="Ajouter un client"><i class="fas fa-plus"></i> Ajouter un client</a>
             </div>
 

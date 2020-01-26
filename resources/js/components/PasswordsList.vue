@@ -9,7 +9,7 @@
             </div>
 
             <div class="col-md-6 text-right">
-                <button class="btn btn-secondary" disabled>{{ pagination.total }} mot<span v-if="pagination.total > 1">s</span> de passe</button>
+                <button class="btn btn-info" disabled>{{ pagination.total }} mot<span v-if="pagination.total > 1">s</span> de passe</button>
             </div>
 
         </div>

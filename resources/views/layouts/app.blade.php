@@ -32,28 +32,34 @@
 
     <div id="app">
 
-        <div class="d-flex" id="wrapper">
+        @include('navbar')
 
-            <!-- Sidebar -->
-            @auth
-                @include('sidebar')
-            @endauth
-            <!-- /#sidebar-wrapper -->
+        <div class="container-fluid">
+
+            <div class="row">
+
+                <!-- Sidebar -->
+                @auth
+                <nav class="d-none d-md-block col-md-2 bg-light sidebar d-print-none">
+                    <div class="sidebar-sticky">
+                        @include('sidebar')
+                    </div>
+                </nav>
+                @endauth
+                <!-- /#sidebar-wrapper -->
 
             <!-- Page Content -->
-            <div id="page-content-wrapper">
-
-                @include('navbar')
-
-                <div class="container-fluid pt-4">
-                    @yield('content')
-                </div>
+                <main role="main" class="col-md-9 col-sm-10 ml-sm-auto col-lg-10 px-4">
+                    <div class="py-4">
+                        @yield('content')
+                    </div>
+                </main>
 
             </div>
-            <!-- /#page-content-wrapper -->
+            <!-- /row -->
 
         </div>
-        <!-- /#wrapper -->
+        <!-- /container -->
 
     </div>
     <!-- app -->

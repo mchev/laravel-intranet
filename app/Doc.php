@@ -9,10 +9,27 @@ class Doc extends Model
 
 	protected $guarded = [];
 
+    /**
+     * The attributes that should be mutated to floats.
+     *
+     * @var array
+     */
     protected $casts = [
         'total' => 'float',
         'discount' => 'float',
         'tva' => 'float',
+    ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'date',
+        'expire_at',
+        'created_at',
+        'updated_at',
     ];
 
     public function status()
