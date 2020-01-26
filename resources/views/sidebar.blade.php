@@ -1,4 +1,4 @@
-<div class="bg-light border-right" id="sidebar-wrapper">
+<div class="bg-light border-right d-print-none" id="sidebar-wrapper">
   <div class="sidebar-heading"><a href="/">{{ $settings->company_name }}</a></div>
   <div class="list-group list-group-flush">
     <a href="/" class="list-group-item list-group-item-action bg-light @if(Route::is('dashboard.*')) active @endif"><i class="fas fa-tachometer-alt"></i> Dashboard</a>

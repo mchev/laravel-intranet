@@ -9,9 +9,15 @@ class Doc extends Model
 
 	protected $guarded = [];
 
+    protected $casts = [
+        'total' => 'float',
+        'discount' => 'float',
+        'tva' => 'float',
+    ];
+
     public function status()
     {
-        return $this->hasOne('App\DocStatus');
+        return $this->belongsTo('App\DocStatus');
     }
 
     public function project()
@@ -21,7 +27,7 @@ class Doc extends Model
 
     public function customer()
     {
-        return $this->hasOne('App\Customer');
+        return $this->belongsTo('App\Customer');
     }
 
     public function user()

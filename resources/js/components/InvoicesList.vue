@@ -2,62 +2,71 @@
 
     <div>
 
-        <div class="row mb-3">
+        <template v-if="rows.length">
 
-            <div class="col-md-6">
-                <input type="text" class="form-control" v-model="query" @keyup="fetch" placeholder="Rechercher">
+            <div class="row mb-3">
+
+                <div class="col-md-6">
+                    <input type="text" class="form-control" v-model="query" @keyup="fetch" placeholder="Rechercher">
+                </div>
+
+                <div class="col-md-6 text-right">
+                </div>
+
             </div>
 
-            <div class="col-md-6 text-right">
-                <button class="btn btn-success" title="Créer une facture" data-toggle="modal" data-target=".invoice-modal-lg"><i class="fas fa-plus"></i> Créer une facture</button>
+            <div class="table-responsive">
+
+                <table class="table">
+
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Date limite</th>
+                            <th>Facture</th>
+                            <th>Client</th>
+                            <th>Balance</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr class="pl-2" v-for="row in rows">
+                            <td><button class="btn" :class="'btn-' + row.status.color">{{ row.status.label }}</button></td>
+                            <td>{{ row.expire_at }}</td>
+                            <td>{{ row.ref }}</td>
+                            <td>{{ row.customer.name }}</td>
+                            <td>{{ row.total + row.tva | rounded }}€ TTC</td>
+                            <td><a title="Visualiser" :href="'/docs/' + row.id"><i class="far fa-eye"></i></a></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
             </div>
 
-        </div>
 
-        <div class="table-responsive">
+            <nav v-if="pagination.total > pagination.perPage">
+              <ul class="pagination">
+                <li class="page-item" :disabled="pagination.prevPage ? false : true"><a class="page-link" @click="gotoPage(pagination.prevPageId)" href="#" title="Précédent">
+                    <i class="fas fa-chevron-left"></i></a>
+                </li>
+                <li v-for="i in Math.ceil(pagination.total / pagination.perPage)" :key="i" class="page-item" :class="{active: i == pagination.currentPage}">
+                    <a class="page-link" @click="gotoPage(i)" href="#">{{ i }}</a>
+                </li>
+                <li class="page-item" :disabled="pagination.nextPage ? false : true">
+                    <a class="page-link" @click="gotoPage(pagination.nextPageId)" href="#" title="Suivant"><i class="fas fa-chevron-right"></i></a>
+                </li>
+              </ul>
+            </nav>
 
-            <table class="table">
+        </template>
 
-                <thead>
-                    <tr>
-                        <th>Status</th>
-                        <th>Date limite</th>
-                        <th>Facture</th>
-                        <th>Client</th>
-                        <th>Balance</th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr class="pl-2" v-for="invoice in rows">
-                        <td><button class="btn btn-success">Payée</button></td>
-                        <td>12/01/2020</td>
-                        <td>FAC-20-0019</td>
-                        <td>Elimeca</td>
-                        <td>540€</td>
-                        <td><i class="far fa-file-pdf"></i></td>
-                    </tr>
-                </tbody>
-
-            </table>
-
-        </div>
-
-
-        <nav v-if="pagination.total > pagination.perPage">
-          <ul class="pagination">
-            <li class="page-item" :disabled="pagination.prevPage ? false : true"><a class="page-link" @click="gotoPage(pagination.prevPageId)" href="#" title="Précédent">
-                <i class="fas fa-chevron-left"></i></a>
-            </li>
-            <li v-for="i in Math.ceil(pagination.total / pagination.perPage)" :key="i" class="page-item" :class="{active: i == pagination.currentPage}">
-                <a class="page-link" @click="gotoPage(i)" href="#">{{ i }}</a>
-            </li>
-            <li class="page-item" :disabled="pagination.nextPage ? false : true">
-                <a class="page-link" @click="gotoPage(pagination.nextPageId)" href="#" title="Suivant"><i class="fas fa-chevron-right"></i></a>
-            </li>
-          </ul>
-        </nav>
+        <template v-else>
+            <div class="alert alert-info">
+                Aucun document
+            </div>
+        </template>
 
     </div>
 
@@ -70,6 +79,7 @@
         data(){
             return {
                 rows: [],
+                type: 'invoice',
                 pagination: {
                     perPage: 5,
                     currentPage: 1,
@@ -84,14 +94,14 @@
                     to: ''
                 },
                 query: '',
-                order: 'name'
+                order: 'expire_at'
             }
         },
 
         methods : {
 
             fetch() {
-                axios.get('/projects?page=' + this.pagination.currentPage + '&paginate=' + this.pagination.perPage + '&q=' + this.query + '&order=' + this.order).then(response => {
+                axios.get('/docs/list?type=' + this.type + '&page=' + this.pagination.currentPage + '&paginate=' + this.pagination.perPage + '&q=' + this.query + '&order=' + this.order).then(response => {
                     this.rows = response.data.data;
                     this.pagination = {
                         perPage: this.pagination.perPage,

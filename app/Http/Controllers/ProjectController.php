@@ -110,9 +110,10 @@ class ProjectController extends Controller
 
         // Project reference based on YEAR and MONTH
         $ref_prefix = date('y') . date('m');
-        $new_month = $ref_prefix . '001';
+        $new_month = $ref_prefix . '01';
 
         $latest_ref = Project::select('ref')
+                            ->withTrashed()
                             ->where(\DB::raw('substr(ref, 1, 4)'), '=', $ref_prefix)
                             ->orderBy('ref', 'DESC')
                             ->first();

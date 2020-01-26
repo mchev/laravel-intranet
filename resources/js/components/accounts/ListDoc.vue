@@ -75,10 +75,15 @@
 
     export default {
 
+        props: {
+          type: {
+            default: "estimate",
+          }
+        },
+
         data(){
             return {
                 rows: [],
-                type: 'estimate',
                 pagination: {
                     perPage: 5,
                     currentPage: 1,
@@ -138,14 +143,19 @@
             this.fetch()
         },
 
-        created: function(){
-            
-        },
-
-        computed: {
-
-        },
+        filters: {
+            rounded(value) {
+              return value.toFixed(2);
+            }
+        }
 
     }
 
 </script>
+
+
+<style scoped>
+    .table > tbody > tr > td {
+         vertical-align: middle;
+    }
+</style>

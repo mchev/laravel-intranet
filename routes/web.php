@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth', 'twofactor']], function () {
 
 		Route::resource('passwords', 'PasswordController');
 
+		Route::get('/docs/list', 'DocController@list');
 		Route::resource('docs', 'DocController');
 
 		Route::get('accounts', function() {

@@ -14,8 +14,8 @@
         <div class="card-body">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <a type="button" class="btn btn-secondary" href="{{ route('customers.create') }}"><i class="fas fa-user-tie"></i> Ajouter un client</a>
-                <a class="btn btn-secondary" href="{{ route('estimates.create') }}"><i class="fas fa-file"></i> Créer un devis</a>
-                <a class="btn btn-secondary" href="{{ route('invoices.create') }}"><i class="fas fa-file-alt"></i> Créer une facture</a>
+                <a class="btn btn-secondary" href="{{ route('docs.create', ['type' => 'estimate']) }}"><i class="fas fa-file"></i> Créer un devis</a>
+                <a class="btn btn-secondary" href="{{ route('docs.create', ['type' => 'invoice']) }}"><i class="fas fa-file-alt"></i> Créer une facture</a>
                 <button type="button" class="btn btn-secondary"><i class="far fa-credit-card"></i> Saisir un paiement</button>
             </div>
         </div>
@@ -32,7 +32,7 @@
                     <h5>Devis</h5>
                 </div>
                 <div class="card-body">
-                    <quotes-list></quotes-list>
+                    <list-doc :type="'estimate'"></list-doc>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
                     <h5>Factures</h5>
                 </div>
                 <div class="card-body">
-                    <invoices-list></invoices-list>
+                    <list-doc :type="'invoice'"></list-doc>
                 </div>
             </div>
         </div>

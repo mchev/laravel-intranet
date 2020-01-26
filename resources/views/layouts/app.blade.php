@@ -36,18 +36,14 @@
 
             <!-- Sidebar -->
             @auth
-            <div class="d-print-none">
                 @include('sidebar')
-            </div>
             @endauth
             <!-- /#sidebar-wrapper -->
 
             <!-- Page Content -->
             <div id="page-content-wrapper">
 
-                <div class="d-print-none">
-                    @include('navbar')
-                </div>
+                @include('navbar')
 
                 <div class="container-fluid pt-4">
                     @yield('content')

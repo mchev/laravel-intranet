@@ -4,9 +4,17 @@
 
 	<div class="container-fluid">
 
+		<!-- HEADER -->
 		<div class="alert alert-info">
-			<h1>{{ $project->name }} ({{ $project->ref }})</h1>
-			<p>{{ $project->customer->name }}</p>
+			<div class="row">
+				<div class="col-md-6">
+					<h1>{{ $project->name }} ({{ $project->ref }})</h1>
+					<p>{{ $project->customer->name }}</p>
+				</div>
+				<div class="col-md-6 text-right">
+					<a href="{{ route('projects.archive', $project) }}" class="float-right btn btn-secondary"><i class="fas fa-archive"></i> Archiver</a>
+				</div>
+			</div>
 		</div>
 
 		<div class="card">

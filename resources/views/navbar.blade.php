@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+<nav class="navbar navbar-expand-lg navbar-light d-print-none bg-light border-bottom">
 
 
     @auth

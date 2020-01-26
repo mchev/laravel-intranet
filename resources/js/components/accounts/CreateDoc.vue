@@ -4,8 +4,21 @@
 
 		<div class="row mb-3">
 
-			<div class="col-md-12 text-right">
-				<button class="btn btn-primary" @click="storeDoc"><i class="fas fa-save"></i> Enregistrer</button>
+			<div class="col-md-6">
+				<a v-if="invoice.project_ref" class="btn btn-primary" :href="'/projects/' + invoice.project_id + '/edit'"><i class="fas fa-chevron-left"></i> Retour au projet</a>
+				<a class="btn btn-primary" href="/accounts">Retour à la comptabilité</a>
+			</div>
+
+			<div class="col-md-6 text-right">
+				<template v-if="doc">
+					<button class="btn btn-primary" @click="updateDoc"><i class="fas fa-save"></i> Mettre à jour</button>
+					<a :href="'/docs/' + invoice.id" class="btn btn-primary"><i class="fas fa-eye"></i> Visualiser</a>
+					<button class="btn btn-success" @click="updateDoc"><i class="fas fa-lock"></i> Valider pour envoi</button>
+					<button class="btn btn-danger" @click="deleteDoc"><i class="fas fa-trash"></i> Supprimer</button>
+				</template>
+				<template v-else>
+					<button class="btn btn-primary" @click="storeDoc"><i class="fas fa-save"></i> Enregistrer</button>
+				</template>
 			</div>
 
 		</div>
@@ -41,7 +54,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="basic-addon1"><i class="far fa-calendar-alt"></i></span>
 								</div>
-								<input class="form-control" type="date" v-model="invoice.created_at" @change="updateExpiration">
+								<input class="form-control" type="date" v-model="invoice.date" @change="updateExpiration">
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -71,7 +84,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
 								</div>
-								<input v-if="invoice.customer" class="form-control" type="text" v-model="invoice.project_ref">
+								<input v-if="invoice.project_ref" class="form-control" type="text" v-model="invoice.project_ref">
 								<input v-else class="form-control" type="text" readonly>
 							</div>
 						</div>
@@ -124,7 +137,7 @@
 	    			</thead>
 
 	    			<tbody>
-					    <tr v-for="(item, index) in items">
+					    <tr v-for="(item, index) in invoice.items">
 					    	<td>
 					    		<input class="form-control mb-2" v-model="item.ref" placeholder="Référence du produit" required />
 					    		<textarea class="form-control" v-model="item.description" placeholder="Description du produit (facultatif)"></textarea>
@@ -149,10 +162,10 @@
 						    </td>
 					    	<td>
 					    		<select class="form-control" v-model="item.tva">
-					    			<option value="20">20%</option>
-					    			<option value="10">10%</option>
-					    			<option value="5.5">5,5%</option>
-					    			<option value="0">0%</option>
+					    			<option value="20.00">20%</option>
+					    			<option value="10.00">10%</option>
+					    			<option value="5.50">5,5%</option>
+					    			<option value="00.00">0%</option>
 					    		</select>
 					    	</td>
 						    <td>
@@ -164,8 +177,8 @@
 						      	</div>
 						    </td>
 					    	<td>
-					    		<strong>{{ (item.price * item.quantity) - ((item.price * item.quantity) * item.discount/100) | rounded }} {{ currency }}</strong><br>
-					    		<small>{{ (item.price * item.quantity) - ((item.price * item.quantity) * item.discount/100) + ((item.price * item.quantity) * item.tva/100) | rounded }} {{ currency }} TTC</small>
+					    		<strong>{{ (item.price * item.quantity) * (1 - item.discount/100) | rounded }} {{ currency }}</strong><br>
+					    		<small>{{ (item.price * item.quantity) * (1 - item.discount/100) + (((item.price * item.quantity) * (1 - item.discount/100)) * item.tva/100) | rounded }} {{ currency }} TTC</small>
 					    	</td>
 					    	<td>
 					    		<button @click="removeItem(index)" class="btn btn-default">
@@ -193,13 +206,19 @@
 					<table class="table">
 
 					    <tr>
-					    	<td>Total HT : {{ total | rounded }} {{ currency }}</td>
+					    	<td>Total HT : {{ total + discount | rounded }} {{ currency }}</td>
+					    </tr>
+					    <tr v-if="discount">
+					    	<td>Remise : {{ discount | rounded }} {{ currency }}</td>
+					    </tr>
+					    <tr v-if="discount">
+					    	<td>Total HT avec remise : {{ total | rounded }} {{ currency }}</td>
 					    </tr>
 					    <tr>
-					    	<td>TVA {{ tva }}% : {{ total * (tva/100) | rounded }} {{ currency }}</td>
+					    	<td>Total TVA : {{ tva | rounded }} {{ currency }}</td>
 					    </tr>
 					    <tr>
-					    	<th>TOTAL TTC en euros : {{ total + ( total * (tva/100) ) }} {{ currency }}</th>
+					    	<th>TOTAL TTC en euros : {{ total + tva | rounded }} {{ currency }}</th>
 					    </tr>
 
 					</table>
@@ -226,6 +245,9 @@
 		  file: {
 		    default: false,
 		  },
+		  doc_ref: {
+		  	default: '',
+		  },
 		  doc: {
 		  	defaut: null,
 		  }
@@ -235,24 +257,10 @@
             return {
             	settings: window.settings,
             	customers: [],
-            	tva: 20,
             	currency: '€',
             	invoice: {
-            		title: this.file.title,
-            		customer: this.file.project.customer,
-            		project_id: this.file.project.id,
-            		project_file_id: this.file.id,
-            		status_id: 1,
-            		project_ref: this.file.project.ref,
-            		type: this.type,
-            		ref: "F-001-2020",
-            		comments: "",
-	            	created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
-	            	expire_at: moment().add(1, 'M').format('YYYY-MM-DD'),
+            		items: []
             	},
-			    items: [
-			      { ref: "", unit: "U", description: "", quantity: 1, price: 0, tva: 20, discount: 0 }
-			    ]
             }
         },
 
@@ -260,15 +268,67 @@
 
             this.getCustomers();
 
+            if (this.doc) {
+            	axios.get('/docs/' + this.doc.id).then(response => {
+                    this.invoice = response.data;
+                });
+            } else {
+            	this.invoice = {
+            		title: this.file.title,
+            		customer: this.file.project.customer,
+            		project_id: this.file.project.id,
+            		project_file_id: this.file.id,
+            		status_id: 1,
+            		project_ref: this.file.project.ref,
+            		type: this.type,
+            		ref: this.doc_ref,
+            		comments: "",
+	            	date: moment().format('YYYY-MM-DD'),
+	            	expire_at: moment().add(1, 'M').format('YYYY-MM-DD'),
+	            	total: 0,
+	            	discount: 0,
+	            	tva: 0,
+				    items: [
+				      { ref: "", unit: "U", description: "", quantity: 1, price: 0, tva: "20.00", discount: 0 }
+				    ]
+            	}
+            }
 
         },
 
 		computed: {
-			total() {
-			  return this.items.reduce(
-			    (acc, item) => acc + (item.price * item.quantity) - ((item.price * item.quantity) * item.discount/100),
-			    0
-			  );
+			total: {
+				get: function() {
+					return this.invoice.items.reduce(
+						(acc, item) => acc + (item.price * item.quantity) * (1 - item.discount/100), 0
+					)
+				}
+			},
+			discount: {
+				get: function() {
+					return this.invoice.items.reduce(
+						(acc, item) => acc + ((item.price * item.quantity) * (item.discount/100)), 0
+					)
+				}
+			},
+			tva: {
+				get: function() {
+					return this.invoice.items.reduce(
+						(acc, item) => acc + ((item.price * item.quantity) * (1 - item.discount/100)) * (item.tva/100), 0
+					)
+				}
+			}
+		},
+
+		watch: {
+			total(total) {
+				this.invoice.total = total;
+			},
+			discount(discount) {
+				this.invoice.discount = discount;
+			},
+			tva(tva) {
+				this.invoice.tva = tva;
 			}
 		},
 
@@ -287,11 +347,11 @@
 			},
 
 			addItem() {
-			  this.items.push({ ref: "", unit: "U", description: "", quantity: 1, price: 0, tva: 20, discount: 0 });
+			  this.invoice.items.push({ ref: "", unit: "U", description: "", quantity: 1, price: 0, tva: "20.00", discount: 0 });
 			},
 
 			removeItem(index) {
-				this.items.splice(index,1);
+				this.invoice.items.splice(index,1);
 			},
 
 			updateExpiration() {
@@ -299,15 +359,21 @@
 			},
 
 			storeDoc() {
-				if (this.type == 'estimate') {
-					axios.post('/estimates', {invoice: this.invoice, items: this.items}).then(response => {
-	                    console.log(response.data);
-	                });
-				} else {
-					axios.post('/invoices', {invoice: this.invoice, items: this.items}).then(response => {
-	                    console.log(response.data);
-	                });
-				}
+				axios.post('/docs', this.invoice).then(response => {
+                    var doc = response.data;
+                    window.location.href = "/docs/" + doc.id + "/edit";
+                });
+			},
+
+			updateDoc() {
+				axios.patch('/docs/' + this.doc.id, this.invoice).then(response => {
+                    console.log(response.data);
+                });
+			},
+
+			deleteDoc() {
+				axios.delete('/docs/' + this.doc.id);
+				window.location.href = "/accounts";
 			}
 		},
 

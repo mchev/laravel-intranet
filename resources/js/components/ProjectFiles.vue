@@ -21,11 +21,11 @@
                     <td><input type="number" step="any" class="form-control"></td>
                     <td>{{ row.hours | seconds }}</td>
                     <td>
-                        <a v-if="row.estimate && row.estimate.status_id === 1" :href="'/docs/edit/' + row.estimate.id" class="btn btn-info" title="Modifier un devis"><i class="fas fa-pen"></i> {{ row.estimate.ref }}</a>
+                        <a v-if="row.estimate && row.estimate.status_id === 1" :href="'/docs/' + row.estimate.id + '/edit'" class="btn btn-info" title="Modifier un devis"><i class="fas fa-pen"></i> {{ row.estimate.ref }}</a>
                         <a v-else :href="'/docs/create?file=' + row.id + '&type=estimate'" class="btn btn-secondary" title="Créer un devis"><i class="fas fa-plus"></i> Devis</a>
                     </td>
                     <td>
-                        <a v-if="row.invoice && row.invoice.status_id === 1" :href="'/docs/edit/' + row.invoice.id" class="btn btn-info" title="Modifier une facture"><i class="fas fa-pen"></i> {{ row.invoice.ref }}</a>
+                        <a v-if="row.invoice && row.invoice.status_id === 1" :href="'/docs/' + row.invoice.id + '/edit'" class="btn btn-info" title="Modifier une facture"><i class="fas fa-pen"></i> {{ row.invoice.ref }}</a>
                         <a v-else :href="'/docs/create?file=' + row.id + '&type=invoice'" class="btn btn-secondary" title="Créer une facture"><i class="fas fa-plus"></i> Facture</a>
                     </td>
                     <td><button class="btn btn-warning"><i class="fas fa-lock"></i> Clôturer</button></td>
