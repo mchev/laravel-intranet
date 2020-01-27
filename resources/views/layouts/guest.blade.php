@@ -32,20 +32,22 @@
 
     <div id="app">
 
-        <div class="d-flex" id="wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
 
             <!-- Page Content -->
-            <div id="page-content-wrapper">
-
-                <div class="container-fluid pt-4">
-                    @yield('content')
-                </div>
+                <main role="main" class="col-md-12 px-4">
+                    <div class="py-4">
+                        @yield('content')
+                    </div>
+                </main>
 
             </div>
-            <!-- /#page-content-wrapper -->
+            <!-- /row -->
 
         </div>
-        <!-- /#wrapper -->
+        <!-- /container -->
 
     </div>
     <!-- app -->
