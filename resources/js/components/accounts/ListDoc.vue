@@ -22,10 +22,10 @@
                     <thead>
                         <tr>
                             <th>Status</th>
-                            <th>Date limite</th>
-                            <th>Facture</th>
+                            <th>Date</th>
+                            <th>Réf.</th>
                             <th>Client</th>
-                            <th>Balance</th>
+                            <th>Total TTC</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -33,10 +33,10 @@
                     <tbody>
                         <tr class="pl-2" v-for="row in rows">
                             <td><button class="btn" :class="'btn-' + row.status.color">{{ row.status.label }}</button></td>
-                            <td>{{ row.expire_at }}</td>
+                            <td>{{ row.date | moment('DD/MM/YYYY') }}</td>
                             <td>{{ row.ref }}</td>
                             <td>{{ row.customer.name }}</td>
-                            <td>{{ row.total + row.tva | rounded }}€ TTC</td>
+                            <td>{{ row.total + row.tva | rounded }}€</td>
                             <td><a title="Visualiser" :href="'/docs/' + row.id"><i class="far fa-eye"></i></a></td>
                         </tr>
                     </tbody>
