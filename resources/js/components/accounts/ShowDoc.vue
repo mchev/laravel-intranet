@@ -4,7 +4,6 @@
 
 		<div class="row mb-3 d-print-none">
 			<div class="col-md-6">
-				<button @click="download" class="btn btn-primary">Télécharger</button>
 				<button @click="print" class="btn btn-primary"><i class="fas fa-print"></i> Imprimer</button>
 				<a :href="'/docs/' + doc.id + '/edit'" class="btn btn-info"><i class="fas fa-pen"></i> Corriger</a>
 				<button @click="print" class="btn btn-success"><i class="fas fa-plus"></i> Ajouter un paiement</button>
@@ -139,8 +138,6 @@
 
 
 <script>
-
-	import jsPDF from 'jsPDF'
 	
     export default {
 
@@ -198,13 +195,6 @@
 		},
 
 		methods: {
-		
-			download() {
-				let pdfName = this.doc.ref; 
-				var pdf = new jsPDF('p', 'mm', [297, 210]);
-				pdf.text(this.name, 40, 40);
-				pdf.save(pdfName + '.pdf');
-			},
 
             print() {
                 window.print();

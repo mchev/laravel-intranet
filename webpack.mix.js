@@ -11,6 +11,8 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.extract(['vue', 'jquery', 'moment']);
+
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .browserSync('intranet.test');
