@@ -219,6 +219,8 @@
                 let task_id = parseInt(data.item.id);
                 let new_index = parseInt(data.newIndex);
 
+                console.log(board_id);
+
                 var items = this.boards[board_id].tasks.map(function(item, index) {
                     return { board_id: board_id, task_id: item.id, order: index }
                 });
