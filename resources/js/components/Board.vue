@@ -221,9 +221,14 @@
 
                 console.log(board_id);
 
+                let items = [];
+                /*
+
                 var items = this.boards[board_id].tasks.map(function(item, index) {
                     return { board_id: board_id, task_id: item.id, order: index }
                 });
+
+                */
 
                 items.push({ board_id: board_id, task_id: task_id, order: new_index });
 
