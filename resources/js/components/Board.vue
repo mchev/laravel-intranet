@@ -196,7 +196,7 @@
                     let board = this.creatingTask;
 
                     let name = this.newTaskName
-                    let order = board.tasks.length + 100
+                    let order = board.tasks.length
                     let board_id = board.id
                     let project_id = (this.newTaskProject) ? this.newTaskProject.id : null
 
@@ -215,11 +215,18 @@
 
             changeOrder(data) {
 
-                let task_id = data.item.id;
-                let board_id = data.to.id;
-                let order = data.newIndex;
+                let board_id = parseInt(data.to.id);
+                let task_id = parseInt(data.item.id);
+                let new_index = parseInt(data.newIndex);
 
-                axios.patch(`/task/${task_id}`, {order, board_id}).then(response => {
+                var items = this.boards[board_id].tasks.map(function(item, index) {
+                    return { board_id: board_id, task_id: item.id, order: index }
+                });
+
+                items.push({ board_id: board_id, task_id: task_id, order: new_index });
+
+                axios.post(`/task/ordering`, {'items': items}).then(response => {
+                    console.log(response.data);
                     this.fetch();
                 });
 

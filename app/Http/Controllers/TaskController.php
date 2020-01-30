@@ -50,7 +50,7 @@ class TaskController extends Controller
     public function update(Request $request, Task $task)
     {
         $status = $task->update(
-            $request->only(['name', 'description', 'due_date', 'board_id', 'project_id', 'order'])
+            $request->only(['name', 'description', 'due_date', 'board_id', 'project_id'])
         );
 
         $task->touch(); // For updating the order based on updated_at
@@ -66,6 +66,28 @@ class TaskController extends Controller
         $task->tags()->sync($request->tag_id);
         $task->tags;
         return response()->json($task);
+    }
+
+    public function ordering(Request $request)
+    {
+
+        if($request->items) {
+
+            foreach ($request->items as $item) {
+                $task = Task::find($item['task_id']);
+                $task->board_id = $item['board_id'];
+                $task->order = $item['order'];
+                $status = $task->update();
+            }
+
+        } else {
+            $status = false;
+        }
+
+        return response()->json([
+            'status' => $status,
+            'message' => $status ? 'Order Updated!' : 'Error Ordering Tasks'
+        ]);
     }
 
     public function archive(Task $task)
