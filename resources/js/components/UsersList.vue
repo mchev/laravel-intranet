@@ -85,12 +85,20 @@
                                 <small class="text-danger">Remplace le mot de passe actuel.</small>
                                 <input class="form-control" type="password" v-model="editingUser.newpassword" autocomplete="off">
                             </div>
-                            <div v-if="user.is_admin" class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input v-model="editingUser.is_admin" type="checkbox" class="custom-control-input" id="adminChek">
-                                    <label class="custom-control-label" for="adminChek">Administrateur</label>
+                            <template v-if="user.is_admin">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input v-model="editingUser.is_admin" type="checkbox" class="custom-control-input" id="adminCheck">
+                                        <label class="custom-control-label" for="adminCheck">Administrateur</label>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input v-model="editingUser.visible_in_tasks" type="checkbox" class="custom-control-input" id="boardCheck">
+                                        <label class="custom-control-label" for="boardCheck">Visible sur les tâches</label>
+                                    </div>
+                                </div>
+                            </template>
                         </form>
                     </div>
                     <div class="modal-footer">

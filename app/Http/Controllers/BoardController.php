@@ -23,7 +23,7 @@ class BoardController extends Controller
 
         if($request->ajax()){
 
-        	$boards = User::with('tasks')->orderBy('name')->get()->toArray();
+        	$boards = User::where('visible_in_tasks', true)->with('tasks')->orderBy('name')->get()->toArray();
             $projects = \App\Project::select('id', 'customer_id', 'name')->with('customer')->get();
 
             $projects->map(function($project) {
