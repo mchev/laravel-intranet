@@ -55,9 +55,11 @@
 
                         <div v-if="creatingTask && creatingTask.id == board.id" class="card-composer">
                             <div class="list-card">
-                                <div class="list-card-details">
+                                <div class="list-card-details-no-overflow">
                                     <textarea v-focus placeholder="Saisissez un titre pour cette carte..." v-model="newTaskName" @keyup.enter="storeTask" class="list-card-composer-textarea"></textarea>
-                                    <v-select :options="projects" v-model="newTaskProject" label="name" class="mb-2" placeholder="Choisir un projet"></v-select>
+                                    <div class="vue-select-up">
+                                        <v-select :options="projects" v-model="newTaskProject" label="name" class="mb-2" placeholder="Choisir un projet"></v-select>
+                                    </div>
                                     <button class="btn btn-success mb-2" @click="storeTask">Ajouter une carte</button>
                                     <button class="btn btn-secondary mb-2" @click="creatingTask = null"><i class="fas fa-times"></i></button>
                                 </div>
