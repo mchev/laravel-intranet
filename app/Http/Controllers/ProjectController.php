@@ -180,7 +180,7 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $request->validate([
-            'ref' => 'required|unique:projects|integer',
+            'ref' => 'required|integer',
             'name' => 'required|max:255',
             'type_id' => 'required|integer',
             'state_id' => 'required|integer',
