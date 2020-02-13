@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth', 'twofactor']], function () {
 	Route::resource('customers', 'CustomerController');
 
 	Route::get('/project/{project}/files', 'ProjectFileController@index');
+	Route::patch('/project/files/{file}/update', 'ProjectFileController@update');
 	Route::patch('/project/files/{file}/validate', 'ProjectFileController@validation');
 
 	Route::get('/projects/list', 'ProjectController@list');

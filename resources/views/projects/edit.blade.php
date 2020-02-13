@@ -12,7 +12,8 @@
 					<p>{{ $project->customer->name }}</p>
 				</div>
 				<div class="col-md-6 text-right">
-					<a href="{{ route('projects.archive', $project) }}" class="float-right btn btn-secondary"><i class="fas fa-archive"></i> Archiver</a>
+					<a href="{{ route('projects.archive', $project) }}" class="btn btn-secondary"><i class="fas fa-archive"></i> Archiver</a>
+					@if($project->budget)<button class="btn btn-warning">Budget : {{ $project->budget }}€</button>@endif
 				</div>
 			</div>
 		</div>

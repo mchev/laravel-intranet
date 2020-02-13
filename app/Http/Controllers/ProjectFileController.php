@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use App\ProjectFile;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProjectFileController extends Controller
@@ -31,9 +32,14 @@ class ProjectFileController extends Controller
      * @param  \App\ProjectFile  $projectFile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProjectFile $projectFile)
+    public function update(Request $request, ProjectFile $file)
     {
-        //
+
+        $file->invoice_estimated = $request->invoice_estimated;
+        $file->estimated_facturation_date = $request->estimated_facturation_date;
+        $file->invoice_total_ht = $request->invoice_total_ht;
+        $file->invoice_total_purchases = $request->invoice_total_purchases;
+        $file->update();
     }
 
     /**
@@ -45,7 +51,20 @@ class ProjectFileController extends Controller
      */
     public function validation(Request $request, ProjectFile $file)
     {
-        dd($file);
+
+        $file->closed_at = Carbon::now();
+        $file->update();
+
+        // Create associated project file
+        $project_file = new ProjectFile;
+        $project_file->project_id = $file->project_id;
+        $project_file->opened_at = Carbon::now()->addDay();;
+        $project_file->state_id = 1;
+        $project_file->save();
+
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
 
 }
