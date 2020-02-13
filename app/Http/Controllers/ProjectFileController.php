@@ -37,8 +37,8 @@ class ProjectFileController extends Controller
 
         $file->invoice_estimated = $request->invoice_estimated;
         $file->estimated_facturation_date = $request->estimated_facturation_date;
-        $file->invoice_total_ht = $request->invoice_total_ht;
-        $file->invoice_total_purchases = $request->invoice_total_purchases;
+        $file->invoice_total = $request->invoice_total;
+        $file->purchases_total = $request->purchases_total;
         $file->update();
     }
 

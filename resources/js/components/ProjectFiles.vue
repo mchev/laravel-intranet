@@ -47,8 +47,8 @@
                         <a v-if="row.invoice && row.invoice.status_id === 1" :href="'/docs/' + row.invoice.id + '/edit'" class="btn btn-info" title="Modifier une facture">{{ row.invoice.ref }}</a>
                         <a v-else :href="'/docs/create?file=' + row.id + '&type=invoice'" class="btn btn-secondary" title="Créer une facture"><i class="fas fa-plus"></i> Facture</a>
                     </td>
-                    <td><input type="number" step="any" v-model="row.invoice_total_ht" class="form-control"></td>
-                    <td><input type="number" step="any" v-model="row.invoice_total_purchases" class="form-control"></td>
+                    <td><input type="number" step="any" v-model="row.invoice_total" class="form-control"></td>
+                    <td><input type="number" step="any" v-model="row.purchases_total" class="form-control"></td>
                     <td><button class="btn btn-success" @click="updateFile(row)"><i class="far fa-save"></i></button></td>
                 </tr>
             </tbody>
