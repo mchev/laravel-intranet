@@ -92,9 +92,12 @@
             },
 
             validateFile(file) {
-                axios.patch('/project/files/' + file.id + '/validate', file).then(response => {
-                    this.fetch();
-                });          
+
+                if(confirm("Voulez-vous vraiment clôturer ce dossier?")) {
+                    axios.patch('/project/files/' + file.id + '/validate', file).then(response => {
+                        this.fetch();
+                    });
+                }      
             }
 
         },
