@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -29,17 +30,49 @@ class AdminController extends Controller
         $projects_count = \App\Project::count();
         $tasks_count = \App\Task::count();
         $budget_total = \App\Project::sum('budget');
-        $estimated = \App\ProjectFile::where('closed_at', NULL)->sum('invoice_estimated');
-        $invoice_total = \App\ProjectFile::where('closed_at', "!=", NULL)->sum('invoice_total');
 
-        return view('admin', compact('customers_count', 'projects_count', 'tasks_count', 'budget_total', 'estimated', 'invoice_total'));
+        $stats = $this->invoices();
+
+        return view('admin', compact('customers_count', 'projects_count', 'tasks_count', 'budget_total', 'stats'));
     }
 
 
-    public function import()
+    public function invoices()
     {
 
-        
+        $estimates = \App\ProjectFile::select(
+                DB::raw('sum(invoice_estimated) as total'), 
+                DB::raw("DATE_FORMAT(estimated_facturation_date,'%m/%Y') as month")
+            )
+            ->where('invoice_estimated', '!=', NULL)
+            ->groupBy('month')
+            ->get()
+            ->pluck('total');
+
+        $invoices = \App\ProjectFile::select(
+                DB::raw('sum(invoice_total) as total'), 
+                DB::raw("DATE_FORMAT(closed_at,'%m/%Y') as month")
+            )
+            ->where('invoice_estimated', '!=', NULL)
+            ->groupBy('month')
+            ->get()
+            ->pluck('total');
+
+        $labels = \App\ProjectFile::select(
+                DB::raw('sum(invoice_estimated) as total'), 
+                DB::raw("DATE_FORMAT(estimated_facturation_date,'%m/%Y') as month")
+            )
+            ->where('invoice_estimated', '!=', NULL)
+            ->groupBy('month')
+            ->get()
+            ->pluck('month');
+
+
+        return [
+            'labels' => $labels,
+            'estimates' => $estimates,
+            'invoices' => $invoices
+        ];
 
     }
 

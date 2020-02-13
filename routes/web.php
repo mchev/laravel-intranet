@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth', 'twofactor']], function () {
 	Route::group(['middleware' => ['admin']], function () {
 
 		Route::get('/admin', 'AdminController@index')->name('admin.index');
+		Route::get('/admin/invoices', 'AdminController@invoices')->name('admin.invoices');
 
 		Route::get('/users/hours', 'UserController@allhours');
 		Route::get('/users/list', 'UserController@getUsers');

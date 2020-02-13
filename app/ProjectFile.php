@@ -16,6 +16,11 @@ class ProjectFile extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'invoice_total' => 'float',
+        'invoice_estimated' => 'float'
+    ];
+
     public function project()
     {
         return $this->belongsTo('App\Project')->with('customer');
