@@ -90,6 +90,12 @@ class TaskController extends Controller
         ]);
     }
 
+    public function duplicate(Task $task)
+    {
+        $new = $task->replicate();
+        $new->push();
+    }
+
     public function archive(Task $task)
     {
         $status = $task->delete();

@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth', 'twofactor']], function () {
     Route::resource('/boards', 'BoardController');
 
 	Route::get('/task/archive/{task}', 'TaskController@archive');
+	Route::get('/task/{task}/duplicate', 'TaskController@duplicate');
 	Route::post('/task/{task}/tags', 'TaskController@tags');
 	Route::post('/task/ordering', 'TaskController@ordering');
 	Route::resource('/task', 'TaskController');
