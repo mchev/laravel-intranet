@@ -27,8 +27,11 @@ Route::group(['middleware' => ['auth', 'twofactor']], function () {
 	Route::patch('/project/files/{file}/update', 'ProjectFileController@update');
 	Route::patch('/project/files/{file}/validate', 'ProjectFileController@validation');
 
-	Route::get('/projects/list', 'ProjectController@list');
+	Route::get('/projects/archives', 'ProjectController@archives')->name('projects.archives');;
+	Route::get('/projects/{project}/restore', 'ProjectController@restore')->name('projects.restore');;
 	Route::get('/projects/{project}/archive', 'ProjectController@destroy')->name('projects.archive');
+
+	Route::get('/projects/list', 'ProjectController@list');
 	Route::resource('projects', 'ProjectController');
 
 	Route::resource('hours', 'HourController');

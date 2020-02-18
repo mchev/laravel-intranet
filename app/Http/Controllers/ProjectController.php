@@ -60,6 +60,21 @@ class ProjectController extends Controller
         }
     }
 
+    public function archives(Request $request)
+    {
+
+        $projects = Project::onlyTrashed()->orderBy('deleted_at', 'DESC')->with('customer')->paginate(10);
+        return view('projects.archives', compact('projects'));
+
+    }
+
+    public function restore($id)
+    {
+        $project = Project::withTrashed()->findOrFail($id);
+        $project->restore();
+        return redirect()->route('projects.edit', [$project]);
+    }
+
 
     public function list()
     {

@@ -11,6 +11,9 @@ class Customer extends Model
 
     public function projects()
     {
-        return $this->hasMany('App\Project')->where('deleted_at', null)->orderBy('updated_at', 'DESC')->with('type', 'state');
+        return $this->hasMany('App\Project')
+        			->orderBy('updated_at', 'DESC')
+        			->with('type', 'state');
     }
+
 }

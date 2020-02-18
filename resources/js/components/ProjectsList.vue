@@ -10,6 +10,7 @@
 
             <div class="col-md-6 text-right">
                 <a href="/projects/create"  class="btn btn-success" title="Ajouter un projet"><i class="fas fa-plus"></i> Ajouter un projet</a>
+                <a href="/projects/archives"  class="btn btn-info" title="Consulter les archives"><i class="fas fa-archive"></i> Consulter les archives</a>
             </div>
 
         </div>
@@ -117,7 +118,7 @@
                     to: ''
                 },
                 query: '',
-                order: 'name'
+                order: 'name',
             }
         },
 
