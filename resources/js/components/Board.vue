@@ -120,6 +120,7 @@
                             <chronometer :task="editingTask" :key="editingTask.id"></chronometer>
                         </template>
                         <hr>
+                        <button data-toggle="modal" data-target="#createHoursModal" class="btn btn-block text-left btn-secondary" title="Ajouter des heures"><i class="fas fa-clock"></i> Ajouter des heures</button>
                         <button class="btn btn-block text-left btn-secondary" @click="archiveTask"><i class="fas fa-archive"></i> Archiver</button>
                         <button class="btn btn-block text-left btn-danger" @click="deleteTask"><i class="fas fa-trash"></i> Supprimer</button>
 
@@ -142,6 +143,14 @@
             </div>
         </div>
 
+        <!-- ADD HOURS MODAL -->
+        <div class="modal fade" id="createHoursModal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <add-hours></add-hours>
+            </div>
+          </div>
+        </div>
 
     </div>
 
