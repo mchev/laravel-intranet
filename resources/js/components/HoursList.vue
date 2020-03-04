@@ -51,6 +51,7 @@
                         <th>Temps</th>
                         <th>Commentaire</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -61,6 +62,11 @@
                         <td>{{ row.date | moment('DD/MM/Y') }}</td>
                         <td>{{ row.time }}</td>
                         <td>{{ row.comment }}</td>
+                        <td>
+                            <button class="btn btn-default text-info" @click="editHour(row)">
+                                <i class="far fa-edit"></i>
+                            </button>
+                        </td>
                         <td>
                             <button class="btn btn-default text-danger" @click="deleteHour(row)">
                                 <i class="far fa-trash-alt"></i>
@@ -78,6 +84,14 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <add-hours></add-hours>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="editHoursModal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <edit-hours v-if="current" :hour="current" @update-hour="updateHour"></edit-hours>
             </div>
           </div>
         </div>
@@ -115,6 +129,7 @@
                   //{ key: 'lastYear', label: 'L\'année dernière', value: '-year' }
                 ],
                 maxDate: moment().format('YYYY-MM-DD'),
+                current: null,
             }
         },
 
@@ -131,12 +146,13 @@
                 this.fetch();
             },
 
-            updateHour(event, hour) {
-                event.preventDefault();
-                event.target.setAttribute('readonly', 'readonly');
-                axios.patch('/hours/' + hour.id, hour).then(response => {
-                    this.fetch();
-                })
+            editHour(row) {
+                this.current = row;
+                $('#editHoursModal').modal('show');
+            },
+
+            updateHour(e) {
+                $('#editHoursModal').modal('hide');
             },
 
             deleteHour(hour) {
