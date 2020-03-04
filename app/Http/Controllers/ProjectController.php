@@ -73,7 +73,8 @@ class ProjectController extends Controller
     {
         setlocale(LC_TIME, 'fr_FR');
 
-        $files = ProjectFile::where('closed_at', NULL)
+        $files = ProjectFile::whereHas('project')
+                    ->where('closed_at', NULL)
                     ->where('estimated_facturation_date', '!=', NULL)
                     ->with('project')
                     ->orderBy('estimated_facturation_date')
