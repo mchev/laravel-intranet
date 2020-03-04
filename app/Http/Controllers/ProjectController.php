@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Project;
 use App\ProjectFile;
 use App\Customer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -65,6 +66,25 @@ class ProjectController extends Controller
 
         $projects = Project::onlyTrashed()->orderBy('deleted_at', 'DESC')->with('customer')->paginate(10);
         return view('projects.archives', compact('projects'));
+
+    }
+
+    public function billable(Request $request)
+    {
+        setlocale(LC_TIME, 'fr_FR');
+
+        $files = ProjectFile::where('closed_at', NULL)
+                    ->where('estimated_facturation_date', '!=', NULL)
+                    ->with('project')
+                    ->orderBy('estimated_facturation_date')
+                    ->get();
+
+        foreach ($files as $file) {
+            $date = new Carbon($file['estimated_facturation_date']);
+            $months[$date->formatLocalized('%B')][] = $file;
+        }
+
+        return view('projects.billable', compact('months'));
 
     }
 

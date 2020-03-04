@@ -23,11 +23,14 @@ Route::group(['middleware' => ['auth', 'twofactor']], function () {
 	Route::get('/customers/list', 'CustomerController@list');
 	Route::resource('customers', 'CustomerController');
 
+
+	// PROJECTS
 	Route::get('/project/{project}/files', 'ProjectFileController@index');
 	Route::patch('/project/files/{file}/update', 'ProjectFileController@update');
 	Route::patch('/project/files/{file}/validate', 'ProjectFileController@validation');
 
 	Route::get('/projects/archives', 'ProjectController@archives')->name('projects.archives');;
+	Route::get('/projects/billable', 'ProjectController@billable')->name('projects.billable');;
 	Route::get('/projects/{project}/restore', 'ProjectController@restore')->name('projects.restore');;
 	Route::get('/projects/{project}/archive', 'ProjectController@destroy')->name('projects.archive');
 
