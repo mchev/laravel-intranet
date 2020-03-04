@@ -101,7 +101,7 @@
                 query: '',
                 order: 'date',
                 range: {
-                    start: moment().subtract(1, "month").format('YYYY-MM-DD'),
+                    start: (this.project) ? moment(this.project.created_at).format('YYYY-MM-DD') : moment().subtract(1, "month").format('YYYY-MM-DD'),
                     end: moment().format('YYYY-MM-DD')
                 },
                 shortcuts : [
@@ -163,7 +163,7 @@
         },
 
         mounted() {
-            this.fetch()
+            this.fetch();
         },
 
         computed: {

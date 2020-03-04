@@ -3,6 +3,7 @@
     <div class="card">
 
         <div class="card-header">
+            <a href="/hours" class="btn btn-info float-right"><i class="fas fa-link"></i> Consulter les heures</a>
             <h5 class="card-title">Heures en cours</h5>
         </div>
 
