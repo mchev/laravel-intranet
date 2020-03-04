@@ -45,7 +45,7 @@
                                 <th>Statut</th>
                                 <th>Budget</th>
                                 <th>Heures</th>
-                                <th>Date de création</th>
+                                <th>À facturer le</th>
                                 <th>Modifié le</th>
                                 <th></th>
                             </tr>
@@ -55,12 +55,13 @@
                             <tr class="pl-2" v-for="project in customer.projects">
                                 <td>{{ project.ref }}</td>
                                 <td width="20%"><a :href="'/projects/' + project.id + '/edit'">{{ project.name }}</a></td>
-                                <td width="20%">{{ project.type.label }}</td>
-                                <td width="20%">{{ project.state.label }}</td>
+                                <td width="10%">{{ project.type.label }}</td>
+                                <td width="10%">{{ project.state.label }}</td>
                                 <td width="10%">{{ project.budget }} <span v-if="project.budget">€</span></td>
-                                <td>{{ project.total_seconds | seconds }}</td>
-                                <td width="10%">{{ project.created_at | moment('DD/MM/Y HH:mm') }}</td>
-                                <td width="10%">{{ project.updated_at | moment('DD/MM/Y HH:mm') }}</td>
+                                <td width="10%">{{ project.total_seconds | seconds }}</td>
+                                <td width="20%" v-if="project.file[0]">{{ project.file[0].estimated_facturation_date | moment('DD/MM/Y') }}</td>
+                                <td width="20%" v-else></td>
+                                <td width="20%">{{ project.updated_at | moment('DD/MM/Y HH:mm') }}</td>
                                 <td><a :href="'/projects/' + project.id + '/edit'" title="Modifier"><i class="far fa-edit"></i></a></td>
                             </tr>
                         </tbody>
@@ -128,6 +129,8 @@
             fetch() {
                 axios.get('/projects?page=' + this.pagination.currentPage + '&paginate=' + this.pagination.perPage + '&q=' + this.query + '&order=' + this.order).then(response => {
                     this.rows = response.data.data;
+                    console.log(this.rows)
+
                     this.pagination = {
                         perPage: this.pagination.perPage,
                         currentPage: response.data.current_page,
@@ -161,7 +164,7 @@
         },
 
         mounted() {
-            this.fetch()
+            this.fetch();
         },
 
         created: function(){

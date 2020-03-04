@@ -40,6 +40,8 @@ class ProjectFileController extends Controller
         $file->invoice_total = $request->invoice_total;
         $file->purchases_total = $request->purchases_total;
         $file->update();
+
+        $file->project->touch();
     }
 
     /**
@@ -61,6 +63,8 @@ class ProjectFileController extends Controller
         $project_file->opened_at = Carbon::now()->addDay();;
         $project_file->state_id = 1;
         $project_file->save();
+
+        $file->project->touch();
 
         return response()->json([
             'status' => 'success'

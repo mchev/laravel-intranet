@@ -13,7 +13,8 @@ class Customer extends Model
     {
         return $this->hasMany('App\Project')
         			->orderBy('updated_at', 'DESC')
-        			->with('type', 'state');
+        			->with('type', 'state')
+        			->with('file');
     }
 
 }

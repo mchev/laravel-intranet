@@ -63,4 +63,9 @@ class Project extends Model
         return $this->hasMany('App\ProjectFile')->with(['state', 'estimate', 'invoice']);
     }
 
+    public function file()
+    {
+        return $this->hasMany('App\ProjectFile')->with(['state', 'estimate', 'invoice'])->latest();
+    }
+
 }
