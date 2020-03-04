@@ -78,7 +78,10 @@ class ProjectController extends Controller
                     ->where('estimated_facturation_date', '!=', NULL)
                     ->with('project')
                     ->orderBy('estimated_facturation_date')
-                    ->get();
+                    ->get()
+                    ->sortBy(function ($file) {
+                        return $file->project->customer->name;
+                    });
 
         foreach ($files as $file) {
             $date = new Carbon($file['estimated_facturation_date']);
