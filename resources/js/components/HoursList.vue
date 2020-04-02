@@ -1,10 +1,10 @@
 <template>
 
-	<div>
+	<div id="hoursList">
 
         <div class="row mb-3">
 
-            <div class="col">
+            <div class="col d-print-none">
                 <input type="text" class="form-control" v-model="query" @keyup="fetch" placeholder="Rechercher (Nom, Projet, Client)">
             </div>
 
@@ -13,7 +13,7 @@
             </div>
 
             <div class="col text-right">
-                <button class="btn btn-info d-print-none" @click="print" title="Imprimer">
+                <button class="btn btn-info d-print-none" v-print="'#hoursList'" title="Imprimer">
                     <i class="fas fa-print"></i>
                 </button>
                 <div class="btn btn-info"><i class="far fa-clock"></i> {{ total | seconds }}</div>
@@ -41,7 +41,7 @@
 
         <div class="table-responsive">
 
-            <table class="table bg-white table-bordered table-striped">
+            <table id="tableHours" class="table bg-white table-bordered table-striped">
                 
                 <thead>
                     <tr>
@@ -50,8 +50,8 @@
                         <th>Date</th>
                         <th>Temps</th>
                         <th>Commentaire</th>
-                        <th></th>
-                        <th></th>
+                        <th class="d-print-none"></th>
+                        <th class="d-print-none"></th>
                     </tr>
                 </thead>
 
@@ -62,12 +62,12 @@
                         <td>{{ row.date | moment('DD/MM/Y') }}</td>
                         <td>{{ row.time }}</td>
                         <td>{{ row.comment }}</td>
-                        <td>
+                        <td class="d-print-none">
                             <button class="btn btn-default text-info" @click="editHour(row)">
                                 <i class="far fa-edit"></i>
                             </button>
                         </td>
-                        <td>
+                        <td class="d-print-none">
                             <button class="btn btn-default text-danger" @click="deleteHour(row)">
                                 <i class="far fa-trash-alt"></i>
                             </button>
@@ -161,10 +161,6 @@
                 })
             },
 
-            print() {
-                window.print();
-            },
-
             groupBy(array, key){
               const result = {}
               array.forEach(item => {
@@ -208,6 +204,6 @@
             },
         }
 
-    }
+    };
 
 </script>

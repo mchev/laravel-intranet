@@ -13,7 +13,7 @@ class TwoFactor
 
         $settings = app('settings');
 
-        if (empty($settings->company_ip) || ($request->ip() != $settings->company_ip) ) {
+        if (empty($settings->company_ip) || ($request->ip() != $settings->company_ip)) {
 
             if(auth()->check() && $user->two_factor_code)
             {

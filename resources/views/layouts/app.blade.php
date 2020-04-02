@@ -51,7 +51,7 @@
                 <!-- /#sidebar-wrapper -->
 
             <!-- Page Content -->
-                <main role="main" class="col-md-9 col-sm-10 ml-sm-auto col-lg-10 px-4">
+                <main role="main" class="col-md-9 col-sm-10 ml-sm-auto col-lg-10 px-4 col-print">
                     <div class="py-4">
                         @yield('content')
                     </div>

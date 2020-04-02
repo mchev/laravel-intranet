@@ -11,6 +11,9 @@ window.Vue = require('vue');
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
 
+import Print from 'vue-print-nb'
+Vue.use(Print);
+
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 Vue.component('datetime', VueCtkDateTimePicker);

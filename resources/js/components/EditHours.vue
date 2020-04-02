@@ -3,7 +3,7 @@
 	<div class="card">
 
 	  <div class="card-header">
-	    Ajouter des heures
+	    Modification
 	  </div>
 
 	  <div class="card-body">

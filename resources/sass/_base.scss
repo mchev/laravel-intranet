@@ -10,11 +10,18 @@ body {
 }
 
 @media print {
+
+  body, #app, .row {
+    overflow: visible;
+  }
+
   .col-print {
     -webkit-box-flex: 0;
-    flex: 0 0 100%;
+    flex: 1;
     max-width: 100%;
+    overflow: visible;
   }
+
 }
 
 @each $color, $value in $theme-colors {

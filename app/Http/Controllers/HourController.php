@@ -49,13 +49,7 @@ class HourController extends Controller
             {
                 $hours = Hour::where('user_id', auth()->user()->id)
                     ->whereBetween('date', [$start, $end])
-                    ->whereHas('project', function ($query) use ($request) {
-                        $query->where('name', 'like', '%' . $request->q . '%')
-                            ->orWhereHas('customer', function ($query) use ($request) {
-                                $query->where('name', 'like', '%' . $request->q . '%');
-                            });
-                    })
-                    ->orWhereHas('user', function ($query) use ($request) {
+                    ->whereHas('user', function ($query) use ($request) {
                         $query->where('name', 'like', '%' . $request->q . '%');
                     })
                     ->orderBy('date', 'DESC')
