@@ -130,6 +130,7 @@ class HourController extends Controller
      */
     public function update(Request $request, Hour $hour)
     {
+        $hour->date = $request->date;
         $hour->time = $request->time;
         $hour->comment = $request->comment;
         $hour->update();
