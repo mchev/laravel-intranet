@@ -43,9 +43,9 @@ class AdminController extends Controller
         $estimates = \App\ProjectFile::withTrashed()
             ->select(
                 DB::raw('sum(invoice_estimated) as total'), 
-                DB::raw("DATE_FORMAT(updated_at,'%m/%Y') as month")
+                DB::raw("DATE_FORMAT(estimated_facturation_date,'%m/%Y') as month")
             )
-            ->where('invoice_estimated', '!=', NULL)
+            ->where('estimated_facturation_date', '!=', NULL)
             ->groupBy('month')
             ->get()
             ->pluck('total');
@@ -62,10 +62,9 @@ class AdminController extends Controller
 
         $labels = \App\ProjectFile::withTrashed()
             ->select(
-                DB::raw('sum(invoice_estimated) as total'), 
                 DB::raw("DATE_FORMAT(updated_at,'%m/%Y') as month")
             )
-            ->where('invoice_estimated', '!=', NULL)
+            ->where('estimated_facturation_date', '!=', NULL)
             ->groupBy('month')
             ->get()
             ->pluck('month');
