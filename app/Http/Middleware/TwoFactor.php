@@ -11,9 +11,7 @@ class TwoFactor
     {
         $user = auth()->user();
 
-        $settings = app('settings');
-
-        if (empty($settings->company_ip) || ($request->ip() != $settings->company_ip)) {
+        if ($request->ip() !== app('settings')->company_ip && $request->ip() !== "127.0.0.1") {
 
             if(auth()->check() && $user->two_factor_code)
             {

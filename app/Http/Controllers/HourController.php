@@ -47,8 +47,7 @@ class HourController extends Controller
             } 
             else if ($request->q)
             {
-                $hours = Hour::where('user_id', auth()->user()->id)
-                    ->whereBetween('date', [$start, $end])
+                $hours = Hour::whereBetween('date', [$start, $end])
                     ->whereHas('user', function ($query) use ($request) {
                         $query->where('name', 'like', '%' . $request->q . '%');
                     })

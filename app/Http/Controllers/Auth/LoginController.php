@@ -48,8 +48,12 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        $user->generateTwoFactorCode();
-        $user->notify(new TwoFactorCode());
+        if ($request->ip() !== app('settings')->company_ip && $request->ip() !== "127.0.0.1") {
+
+            $user->generateTwoFactorCode();
+            $user->notify(new TwoFactorCode());
+
+        }
     }
 
 }

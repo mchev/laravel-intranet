@@ -10,17 +10,17 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "axios": "^0.19",
+        "axios": "^0.19.2",
         "bootstrap": "^4.0.0",
         "browser-sync": "^2.26.7",
-        "browser-sync-webpack-plugin": "^2.0.1",
+        "browser-sync-webpack-plugin": "^2.2.2",
         "cross-env": "^5.1",
-        "jquery": "^3.2",
+        "jquery": "^3.5.0",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.13",
-        "popper.js": "^1.12",
+        "popper.js": "^1.16.1",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.20.1",
+        "sass": "^1.26.3",
         "sass-loader": "7.*",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
@@ -31,7 +31,7 @@
         "vue-ctk-date-time-picker": "^2.4.0",
         "vue-moment": "^4.1.0",
         "vue-print-nb": "^1.5.0",
-        "vue-select": "^3.4.0",
+        "vue-select": "^3.10.1",
         "vue-textarea-autosize": "^1.1.1",
         "vuedraggable": "^2.23.2"
     }
