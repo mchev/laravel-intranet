@@ -40,27 +40,30 @@ class AdminController extends Controller
     public function invoices()
     {
 
-        $estimates = \App\ProjectFile::select(
+        $estimates = \App\ProjectFile::withTrashed()
+            ->select(
                 DB::raw('sum(invoice_estimated) as total'), 
-                DB::raw("DATE_FORMAT(estimated_facturation_date,'%m/%Y') as month")
+                DB::raw("DATE_FORMAT(updated_at,'%m/%Y') as month")
             )
             ->where('invoice_estimated', '!=', NULL)
             ->groupBy('month')
             ->get()
             ->pluck('total');
 
-        $invoices = \App\ProjectFile::select(
+        $invoices = \App\ProjectFile::withTrashed()
+            ->select(
                 DB::raw('sum(invoice_total) as total'), 
-                DB::raw("DATE_FORMAT(closed_at,'%m/%Y') as month")
+                DB::raw("DATE_FORMAT(updated_at,'%m/%Y') as month")
             )
-            ->where('invoice_estimated', '!=', NULL)
+            ->where('invoice_total', '!=', NULL)
             ->groupBy('month')
             ->get()
             ->pluck('total');
 
-        $labels = \App\ProjectFile::select(
+        $labels = \App\ProjectFile::withTrashed()
+            ->select(
                 DB::raw('sum(invoice_estimated) as total'), 
-                DB::raw("DATE_FORMAT(estimated_facturation_date,'%m/%Y') as month")
+                DB::raw("DATE_FORMAT(updated_at,'%m/%Y') as month")
             )
             ->where('invoice_estimated', '!=', NULL)
             ->groupBy('month')
