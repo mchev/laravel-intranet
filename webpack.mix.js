@@ -15,4 +15,5 @@ mix.extract(['vue', 'jquery', 'moment', 'chart.js']);
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
+   .version()
    .browserSync('intranet.test');
