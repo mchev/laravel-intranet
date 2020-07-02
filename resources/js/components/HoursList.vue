@@ -153,6 +153,7 @@
 
             updateHour(e) {
                 $('#editHoursModal').modal('hide');
+                this.fetch();
             },
 
             deleteHour(hour) {

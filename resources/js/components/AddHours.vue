@@ -32,7 +32,7 @@
 
 				<div class="col-md-6">
 					<label>Date</label>
-                    <datetime v-model="date" type="date" formatted="DD/MM/YYYY" :max-date="date" auto-close no-button no-header only-date noLabel format="YYYY-MM-DD"/>
+                    <datetime v-model="date" type="date" formatted="DD/MM/YYYY" :max-date="today" auto-close no-button no-header only-date noLabel format="YYYY-MM-DD"/>
 
 				</div>
 
@@ -75,6 +75,7 @@ export default {
     data() {
         return {
         	selected: 0,
+            today: moment().format('YYYY-MM-DD'),
             date: moment().format('YYYY-MM-DD'),
         	time: '00:15',
         	comment: '',

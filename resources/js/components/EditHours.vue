@@ -12,11 +12,11 @@
 
 			<div class="form-group">
 				<label>Projet</label>
-				<v-select :options="projects" v-model="hour.project_id" label="name">
+				<v-select :options="projects" v-model="selected" :reduce="name => name.id" label="name">
 					<template #search="{attributes, events}">
 						<input
 							class="vs__search"
-							:required="!hour.project_id"
+							:required="!selected"
 							v-bind="attributes"
 							v-on="events"
 						/>
@@ -75,6 +75,7 @@ export default {
             date: moment().format('YYYY-MM-DD'),
             projects: [],
             response: false,
+            selected: this.hour.project_id
         }
     },
 
@@ -94,6 +95,8 @@ export default {
         store() {
 
             let vm = this;
+
+            this.hour.project_id = this.selected;
 
             axios.patch('/hours/' + this.hour.id, this.hour).then(response => {
                 this.$emit('update-hour', this.hour);
