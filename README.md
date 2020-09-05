@@ -11,6 +11,10 @@ Clone the repository to your host.
 In the directory :
 
 ```
+composer install
+```
+
+```
 cp .env.example .env
 ```
 Edit your database informations in .env file
@@ -25,13 +29,10 @@ php artisan migrate
 ```
 
 ```
-composer install
+php artisan db:seed
 ```
 
-```
-npm install
-```
+## First connexion
 
-```
-npm run watch / npm run dev / npm run prod
-```
+User : admin@demo.com
+Password : admin

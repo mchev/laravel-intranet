@@ -125,6 +125,11 @@
 
 						<div class="col-xl-6">
 
+							<div class="form-group">
+								<label>Double authentification</label>
+								<input type="checkbox" v-model="setting.two_factor" class="form-control">
+							</div>
+
 							<div class="alert alert-warning">Vous pouvez desactiver la double authentification dans vox locaux en renseignant votre adresse IP publique</div>
 							<div class="form-group">
 								<label>Adresse IP</label>

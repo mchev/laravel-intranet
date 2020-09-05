@@ -15,6 +15,7 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('company_ip')->nullable();
             $table->string('company_name');
             $table->string('company_phone');
             $table->string('company_email');
@@ -27,6 +28,7 @@ class CreateSettingsTable extends Migration
             $table->string('company_logo_url');
             $table->string('background_color');
             $table->string('lang');
+            $table->boolean('two_factor')->nullable();
 
             $table->timestamps();
         });

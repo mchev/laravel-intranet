@@ -11,28 +11,28 @@
     },
     "devDependencies": {
         "axios": "^0.19.2",
-        "bootstrap": "^4.5.0",
-        "browser-sync": "^2.26.7",
+        "bootstrap": "^4.5.2",
+        "browser-sync": "^2.26.12",
         "browser-sync-webpack-plugin": "^2.2.2",
         "cross-env": "^5.1",
         "jquery": "^3.5.1",
         "laravel-mix": "^4.0.7",
-        "lodash": "^4.17.19",
+        "lodash": "^4.17.20",
         "popper.js": "^1.16.1",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.26.9",
+        "sass": "^1.26.10",
         "sass-loader": "7.*",
-        "vue": "^2.5.17",
-        "vue-template-compiler": "^2.6.10"
+        "vue": "^2.6.12",
+        "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
         "chart.js": "^2.9.3",
-        "vue-chartjs": "^3.5.0",
+        "vue-chartjs": "^3.5.1",
         "vue-ctk-date-time-picker": "^2.5.0",
         "vue-moment": "^4.1.0",
         "vue-print-nb": "^1.5.0",
-        "vue-select": "^3.10.3",
+        "vue-select": "^3.10.8",
         "vue-textarea-autosize": "^1.1.1",
-        "vuedraggable": "^2.23.2"
+        "vuedraggable": "^2.24.1"
     }
 }
