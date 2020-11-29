@@ -9,25 +9,30 @@ class TwoFactor
 
     public function handle($request, Closure $next)
     {
-        $user = auth()->user();
 
-        if ($request->ip() !== app('settings')->company_ip && $request->ip() !== "127.0.0.1") {
+        if( app('settings')->two_factor ) {
 
-            if(auth()->check() && $user->two_factor_code)
-            {
-                if($user->two_factor_expires_at->lt(now()))
+            $user = auth()->user();
+
+            if ($request->ip() !== app('settings')->company_ip && $request->ip() !== "127.0.0.1") {
+
+                if(auth()->check() && $user->two_factor_code)
                 {
-                    $user->resetTwoFactorCode();
-                    auth()->logout();
+                    if($user->two_factor_expires_at->lt(now()))
+                    {
+                        $user->resetTwoFactorCode();
+                        auth()->logout();
 
-                    return redirect()->route('login')
-                        ->withMessage('Le code à deux facteurs a expiré. Veuillez vous connecter à nouveau.');
+                        return redirect()->route('login')
+                            ->withMessage('Le code à deux facteurs a expiré. Veuillez vous connecter à nouveau.');
+                    }
+
+                    if(!$request->is('verify*'))
+                    {
+                        return redirect()->route('verify.index');
+                    }
                 }
 
-                if(!$request->is('verify*'))
-                {
-                    return redirect()->route('verify.index');
-                }
             }
 
         }
